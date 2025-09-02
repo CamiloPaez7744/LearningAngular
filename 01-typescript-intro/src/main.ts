@@ -5,6 +5,7 @@ import { setupCounter } from './counter.ts'
 import './topics/01-basics-types.ts'
 import './topics/02-object-interface.ts'
 import './topics/03-funtions.ts'
+import './topics/04-homework-types.ts'
 
 const app = document.querySelector<HTMLDivElement>('#app')!;
 app.innerHTML = `

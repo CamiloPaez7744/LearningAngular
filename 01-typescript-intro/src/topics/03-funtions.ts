@@ -47,6 +47,8 @@ const revivePlayer = (player: Player): void => {
 const result = healthStatus(player);
 console.log(`Health Status: ${result}`);
 
-console.log(magicScroll(player, 'Fireball'));
+magicScroll(player, 'Fireball');
+
+revivePlayer(player);
 
 export {};
