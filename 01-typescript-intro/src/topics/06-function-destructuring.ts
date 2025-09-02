@@ -1,5 +1,5 @@
 
-interface Product {
+export interface Product {
     description: string;
     price: number;
     category: string;
@@ -25,7 +25,7 @@ interface TaxCalculationOptions {
     shoppingCart: Product[];
 }
 
-function taxCalculation(options: TaxCalculationOptions): [number, number] {
+export function taxCalculation(options: TaxCalculationOptions): [number, number] {
     const total = options.shoppingCart.reduce((sum, item) => sum + item.price, 0);
     const totalWithTax = total + (total * options.taxRate);
     return [total, totalWithTax];
