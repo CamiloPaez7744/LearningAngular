@@ -16,4 +16,4 @@ const player: Player = {
 
 console.table(player);
 
-export { Player };
+export type { Player };
