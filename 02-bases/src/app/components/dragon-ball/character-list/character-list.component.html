@@ -1,0 +1,18 @@
+<h3>{{ listName() }}</h3>
+    <ul class="list-group">
+      @for (character of characters(); track character.name; let idx = $index) {
+        @if
+          (character.power >= 5000) {
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              {{ idx + 1 }}. {{ character.name }}
+              <strong
+                [class.text-danger]="character.power < 6000"
+                [class.text-warning]="character.power >= 9000"
+                class="badge bg-primary rounded-pill"
+                >{{ character.power }}</strong
+              >
+            </li>
+          }
+        }
+    </ul>
+
