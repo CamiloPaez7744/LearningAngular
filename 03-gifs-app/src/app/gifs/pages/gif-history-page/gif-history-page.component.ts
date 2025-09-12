@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
-import { GifsService } from '@gifs/services/gifs.service';
+import { GifService } from '@gifs/services/gif.service';
 import { map } from 'rxjs';
 import { GifListComponent } from "@gifs/components/gif-list/gif-list.component";
 
@@ -13,7 +13,7 @@ import { GifListComponent } from "@gifs/components/gif-list/gif-list.component";
 })
 export class GifHistoryPageComponent {
 
-  gifService = inject(GifsService);
+  gifService = inject(GifService);
   // query = inject(ActivatedRoute).snapshot.paramMap.get('query') ?? '';
   // query = inject(ActivatedRoute).params.subscribe(params => {
   //   console.log(params['query']);
