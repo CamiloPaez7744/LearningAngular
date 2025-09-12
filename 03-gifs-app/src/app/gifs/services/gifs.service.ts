@@ -28,4 +28,21 @@ export class GifsService {
       console.log({ response });
     });
   }
+
+  searchGifs(query: string) {
+    this.http.get<GiphyResponse>(`${environment.giphyApi.serviceUrl}/search`, {
+      params: {
+        api_key: `${environment.giphyApi.apiKey}`,
+        q: query,
+        limit: '25',
+        offset: '0',
+        rating: 'g',
+        lang: 'en'
+      }
+    }).subscribe((response) => {
+      const gifs = GifMapper.mapGiphyListToGifList(response.data);
+      console.log({ search: gifs });
+    }
+    );
+  }
 }
