@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, ElementRef, inject, viewChild } from '@angular/core';
 import { GifListComponent } from "@gifs/components/gif-list/gif-list.component";
 import { GifService } from '@gifs/services/gif.service';
 
@@ -25,4 +25,18 @@ export class TrendingPageComponent {
   // public images: string[] = imageUrls;
 
   gifService = inject(GifService);
+
+  scrollDivRef =  viewChild<ElementRef<HTMLDivElement>>('groupDiv');
+
+  onScroll (event: Event) {
+    const scrollDiv = this.scrollDivRef()?.nativeElement;
+    if (!scrollDiv) return;
+
+    const { scrollTop, clientHeight, scrollHeight } = scrollDiv;
+
+    const isAtBottom = scrollTop + clientHeight + 300 >= scrollHeight;
+    if (isAtBottom) {
+      console.log('At bottom');
+    }
+  }
 }
