@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
-  selector: 'app-by-capital-page',
+  selector: 'country-list',
   imports: [],
-  templateUrl: './by-capital-page.component.html',
+  templateUrl: './country-list.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ByCapitalPageComponent { }
+export class CountryListComponent { }
