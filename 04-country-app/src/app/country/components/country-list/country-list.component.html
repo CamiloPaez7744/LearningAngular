@@ -8,14 +8,27 @@
         <th>Name</th>
         <th>Capital</th>
         <th>Population</th>
-        <th>Area</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
-      <!-- rows with countries -->
-      <tr>
-
-      </tr>
+      @for (country of countries(); track country.cca3) {
+        <tr>
+          <td>{{ $index + 1 }}</td>
+          <td><img [src]="country.flag" [alt]="country.name" class="w-6 h-6" /></td>
+          <td><img [src]="country.flagSvg" [alt]="country.name" class="w-6 h-6" /></td>
+          <td>{{ country.name }}</td>
+          <td>{{ country.capital }}</td>
+          <td>
+            <span class="badge bg-secondary">
+              {{ country.population | number }}
+            </span>
+          </td>
+          <td>
+            <a [routerLink]="['/country', country.cca3]" class="btn btn-sm btn-primary">More info</a>
+          </td>
+        </tr>
+      }
     </tbody>
 
   </table>
