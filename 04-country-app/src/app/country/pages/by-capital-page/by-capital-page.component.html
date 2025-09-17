@@ -1,9 +1,19 @@
-<app-search-input [placeholder]="'Search by capital...'" (value)="onSearchCapital($event)"></app-search-input>
+<app-search-input
+[placeholder]="'Search by capital...'"
+(value)="capital.set($event)"></app-search-input>
 
-@if (isError()) {
+@if (countryResource.error()) {
+  <div class="alert alert-danger mt-4" role="alert">
+    {{ countryResource.error() }}
+  </div>
+} @else if (countryResource.value()) {
+  <country-list [countries]="countryResource.value()!"></country-list>
+}
+
+<!-- @if (isError()) {
   <div class="alert alert-danger mt-4" role="alert">
     {{ isError() }}
   </div>
 } @else {
   <country-list [countries]="countries()"></country-list>
-}
+} -->
