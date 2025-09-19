@@ -29,6 +29,23 @@
           </td>
         </tr>
       }
+      @if (errorMessage()) {
+        <tr>
+          <td colspan="7">{{ errorMessage() }}></td>
+        </tr>
+      }
+
+      @if (countries().length === 0 && !isLoading() && !errorMessage()) {
+        <tr>
+          <td colspan="7">No countries found</td>
+        </tr>
+      }
+
+      @if (isLoading()) {
+        <tr>
+          <td colspan="7">Loading...</td>
+        </tr>
+      }
     </tbody>
 
   </table>

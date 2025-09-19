@@ -1,0 +1,19 @@
+<section>
+  <h1>{{ country().name }}</h1>
+  <p>Capital: {{ country().capital }}</p>
+  <p>Population: {{ country().population | number }}</p>
+</section>
+
+<section>
+  <figure class="diff aspect-16/9" tabindex="0">
+    <div class="diff-item-1" role="img" tabindex="0">
+      <img [attr.alt]="country().name" [src]="country().flagSvg" />
+    </div>
+    <div class="diff-item-2" role="img">
+      <img
+      class="blur brightness-50"
+      [alt]="country().name" [src]="country().flagSvg" />
+    </div>
+    <div class="diff-resizer"></div>
+  </figure>
+</section>
