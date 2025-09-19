@@ -1,0 +1,9 @@
+<div class="p-4">
+  @if (geoJsonResource.isLoading()) {
+    <p>Loading map...</p>
+  } @else if (geoJsonResource.error()) {
+    <p class="text-red-500">Error loading map</p>
+  } @else if (geoJsonResource.value()) {
+    <pre>{{ geoJsonResource.value() | json }}</pre>
+  }
+</div>
