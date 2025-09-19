@@ -20,7 +20,7 @@ export const countryRoutes: Routes = [
       },
       {
         path: 'by/:code',
-        loadComponent: () => import('./pages/by-country-page/by-country-page.component').then((m) => m.ByCountryPageComponent),
+        loadComponent: () => import('./pages/country-page/country-page.component').then((m) => m.CountryPageComponent),
       },
       {
         path: '**',
