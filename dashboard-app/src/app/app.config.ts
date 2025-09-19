@@ -6,7 +6,7 @@ import * as echarts from 'echarts/core';
 import { routes } from './app.routes';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { GeoComponent, GridComponent, TitleComponent, TooltipComponent } from 'echarts/components';
-import { ScatterChart } from 'echarts/charts';
+import { BarChart, LineChart, PieChart, ScatterChart } from 'echarts/charts';
 import { CanvasRenderer } from 'echarts/renderers';
 
 export const appConfig: ApplicationConfig = {
@@ -25,5 +25,10 @@ echarts.use([
   GridComponent,
   GeoComponent,
   ScatterChart,
+  CanvasRenderer,
+  LineChart,
+  ScatterChart,
+  BarChart,
+  PieChart,
   CanvasRenderer
 ])

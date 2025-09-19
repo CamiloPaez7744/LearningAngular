@@ -1,9 +1,9 @@
 <div class="p-4">
   @if (geoJsonResource.isLoading()) {
-    <p>Loading map...</p>
+  <p>Loading map...</p>
   } @else if (geoJsonResource.error()) {
-    <p class="text-red-500">Error loading map</p>
+  <p class="text-red-500">Error loading map</p>
   } @else if (geoJsonResource.value()) {
-    <pre>{{ geoJsonResource.value() | json }}</pre>
+  <div echarts [options]="chartOptions()" class="w-full h-[600px] sm:h-[700px] md:h-[800px]"></div>
   }
 </div>

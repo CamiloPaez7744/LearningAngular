@@ -1,0 +1,12 @@
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
+  @for (kpi of kpis; track kpi.title) {
+    <app-kpi-card
+      [title]="kpi.title"
+      [value]="kpi.value"
+      [percentage]="kpi.percentage"
+      [trendUp]="kpi.trendUp"
+      [sparklineData]="kpi.sparkline">
+    </app-kpi-card>
+  }
+</div>
+

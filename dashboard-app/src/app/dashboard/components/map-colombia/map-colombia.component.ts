@@ -1,40 +1,41 @@
-import { ChangeDetectionStrategy, Component, computed, inject, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
 import * as echarts from 'echarts';
 import { MapPoint } from '../../interfaces/map-colombia.interface';
 import { NgxEchartsDirective } from 'ngx-echarts';
 import { MapService } from '../../services/map.service';
 import { rxResource } from '@angular/core/rxjs-interop';
-import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-map-colombia',
-  imports: [NgxEchartsDirective, JsonPipe],
+  imports: [NgxEchartsDirective],
   templateUrl: './map-colombia.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MapColombiaComponent {
   private mapService = inject(MapService);
 
-  // Datos de entrada
+  // Input reactivo
   data = input<MapPoint[]>([]);
 
-  // Recurso reactivo para cargar el mapa
+  // Recurso para cargar el GeoJSON
   geoJsonResource = rxResource({
     stream: () => this.mapService.getColombiaMap()
   });
 
-  // Computed que depende del recurso y de data()
+  // Opciones de ECharts
   chartOptions = computed((): echarts.EChartsOption => {
     const geoJson = this.geoJsonResource.value();
     if (!geoJson) return {};
 
-    // registrar el mapa dinámicamente cuando esté listo
+    // Registrar el mapa solo cuando lo cargue
     echarts.registerMap('colombia', geoJson as any);
 
     return {
       geo: {
         map: 'colombia',
         roam: true,
+        zoom: 1.5,
+        center: [-74.297333, 4.570868],
         label: { show: true, fontSize: 9 },
         itemStyle: { borderColor: '#999', areaColor: '#e0f2fe' },
         emphasis: { itemStyle: { areaColor: '#93c5fd' } }
