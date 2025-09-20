@@ -1,13 +1,12 @@
 import { NgClass } from '@angular/common';
 import * as echarts from 'echarts';
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
-import { NgxEchartsDirective } from 'ngx-echarts';
 import { ChartComponent } from "../../../shared/components/chart/chart.component";
 import { ChartConfig, ChartData, ChartType } from '../../../shared/interfaces/chart.interface';
 
 @Component({
   selector: 'app-kpi-card',
-  imports: [NgClass, NgxEchartsDirective, ChartComponent],
+  imports: [NgClass, ChartComponent],
   templateUrl: './kpi-chart-card.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

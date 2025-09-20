@@ -40,8 +40,8 @@ export class ChartComponent {
 
       case 'bar-vertical':
         return {
-          xAxis: { type: 'category', data: data.labels, show: style?.showAxis },
-          yAxis: { type: 'value', show: style?.showAxis },
+          xAxis: { type: 'category', data: data.labels, show: style?.showAxis, boundaryGap: false },
+          yAxis: { type: 'value', show: style?.showAxis, min: 0 },
           series: [{ data: data.values, type: 'bar', itemStyle: { color } }],
           title: style?.showTitle ? { text: style?.title } : undefined,
           tooltip: { trigger: 'axis' }
