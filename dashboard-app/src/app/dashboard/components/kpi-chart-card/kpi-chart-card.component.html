@@ -1,0 +1,33 @@
+<div class="rounded-2xl shadow-md bg-white flex flex-col gap-2" [ngClass]="color">
+  <!-- Header -->
+  <section class="p-4">
+    <div class="flex justify-between items-center">
+      <h3 class="text-sm font-semibold text-gray-500">{{ title() }}</h3>
+      <div
+        class="w-8 h-8 rounded-full flex items-center justify-center"
+        [ngClass]="trendUp() ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'"
+      >
+        <span class="text-lg font-bold">
+          {{ trendUp() ? '↑' : '↓' }}
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-4">
+    <!-- Value -->
+    <div class="text-2xl font-bold text-gray-900">
+      {{ value() }}
+      <span class="text-sm" [ngClass]="trendUp() ? 'text-green-600' : 'text-red-600'">
+        {{ percentage() }}%
+      </span>
+    </div>
+  </section>
+
+  <!-- Chart -->
+  <section class="flex-grow px-2 pb-2">
+  <div class="w-full h-28">
+    <app-chart [config]="lineChart()" class="w-full h-full"></app-chart>
+  </div>
+</section>
+</div>

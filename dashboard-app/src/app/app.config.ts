@@ -5,9 +5,10 @@ import * as echarts from 'echarts/core';
 
 import { routes } from './app.routes';
 import { provideHttpClient, withFetch } from '@angular/common/http';
-import { GeoComponent, GridComponent, TitleComponent, TooltipComponent } from 'echarts/components';
+import { DatasetComponent, GeoComponent, GridComponent, LegendComponent, TitleComponent, TooltipComponent } from 'echarts/components';
 import { BarChart, LineChart, PieChart, ScatterChart } from 'echarts/charts';
 import { CanvasRenderer } from 'echarts/renderers';
+import { UniversalTransition } from 'echarts/features';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -22,13 +23,16 @@ export const appConfig: ApplicationConfig = {
 echarts.use([
   TitleComponent,
   TooltipComponent,
+  LegendComponent,
   GridComponent,
   GeoComponent,
+  DatasetComponent,
   ScatterChart,
   CanvasRenderer,
   LineChart,
   ScatterChart,
   BarChart,
   PieChart,
-  CanvasRenderer
+  CanvasRenderer,
+  UniversalTransition
 ])
