@@ -4,6 +4,7 @@
     class="input input-bordered w-full max-w-xs"
     [placeholder]="placeholder()"
     (keyup.enter)="value.emit(searchInput.value)"
+    (keyup)="inputValue.set(searchInput.value)"
     autofocus
     #searchInput
   />

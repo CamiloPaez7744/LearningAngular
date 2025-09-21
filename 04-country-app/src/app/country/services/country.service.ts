@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { RESTCountry } from '../interfaces/res-countries.interface';
 import { Country } from '../interfaces/country.interface';
-import { catchError, map, Observable, throwError } from 'rxjs';
+import { catchError, delay, map, Observable, of, tap, throwError } from 'rxjs';
 import { CountryMapper } from '../mappers/country.mapper';
 
 const API_URL = 'https://restcountries.com/v3.1';
@@ -12,12 +12,19 @@ const API_URL = 'https://restcountries.com/v3.1';
 })
 export class CountryService {
   private http = inject(HttpClient);
+  private queryCacheCapital = new Map<string, Country[]>();
+  private queryCacheCountry = new Map<string, Country[]>();
 
   searchByCapital(capital: string): Observable<Country[]> {
     capital = capital.toLowerCase().trim();
 
+    if (this.queryCacheCapital.has(capital)) {
+      return of(this.queryCacheCapital.get(capital)!);
+    }
+
     return this.http.get<RESTCountry[]>(`${API_URL}/capital/${capital}`).pipe(
       map(restCountry => CountryMapper.toCountries(restCountry)),
+      tap(countries => this.queryCacheCapital.set(capital, countries)),
       catchError((error) => {
         console.error({ error });
         return throwError(() => new Error(`Error fetching countries with capital "${capital}"`));
@@ -28,8 +35,13 @@ export class CountryService {
   searchByCountry(country: string): Observable<Country[]> {
     country = country.toLowerCase().trim();
 
+    if (this.queryCacheCountry.has(country)) {
+      return of(this.queryCacheCountry.get(country)!);
+    }
+
     return this.http.get<RESTCountry[]>(`${API_URL}/name/${country}`).pipe(
       map(restCountry => CountryMapper.toCountries(restCountry)),
+      tap(countries => this.queryCacheCountry.set(country, countries)),
       catchError((error) => {
         console.error({ error });
         return throwError(() => new Error(`Error fetching countries with name "${country}"`));
