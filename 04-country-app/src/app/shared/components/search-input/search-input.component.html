@@ -5,6 +5,7 @@
     [placeholder]="placeholder()"
     (keyup.enter)="value.emit(searchInput.value)"
     (keyup)="inputValue.set(searchInput.value)"
+    [value]="inputValue()"
     autofocus
     #searchInput
   />

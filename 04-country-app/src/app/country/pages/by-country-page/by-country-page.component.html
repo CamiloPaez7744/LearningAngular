@@ -1,5 +1,6 @@
 <app-search-input
   [placeholder]="'Search by country...'"
+  [initialValue]="country()"
   (value)="country.set($event)"
 ></app-search-input>
 

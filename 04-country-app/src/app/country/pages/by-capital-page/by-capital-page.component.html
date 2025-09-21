@@ -1,6 +1,9 @@
 <app-search-input
 [placeholder]="'Search by capital...'"
-(value)="capital.set($event)"></app-search-input>
+[debounceTime]="750"
+[initialValue]="capital()"
+(value)="capital.set($event)
+"></app-search-input>
 
 <country-list
   [countries]="countryResource.value() ?? []"
