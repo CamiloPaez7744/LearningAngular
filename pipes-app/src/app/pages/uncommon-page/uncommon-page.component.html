@@ -4,7 +4,10 @@
 </section>
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
   <app-card title="i18nSelect Pipe">
-    <p>Hola mundo desde el padre</p>
+    <p>Greetings {{ client().gender | i18nSelect: invitationMap}} {{ client().name }}, it's a pleasure to invite you to our platform.</p>
+    <button class="btn btn-primary btn-sm mt-2" (click)="changeClient()">
+      Change Client
+    </button>
   </app-card>
 
 </div>
