@@ -100,16 +100,19 @@
 
 <div>
   <h1 class="text-3xl font-bold">Localization</h1>
-  <h3 class="text-xl font-thin">Current Language: es-CO</h3>
+  <h3 class="text-xl font-thin">Current Language: {{ currentLocale() }}</h3>
 
-  <button class="btn btn-primary mt-4">
+  <button (click)="changeLocale('fr')" class="btn btn-primary mt-4">
     Changer en français
   </button>
-  <button class="btn btn-secondary mt-4 ml-2">
+  <button (click)="changeLocale('en-US')" class="btn btn-secondary mt-4 ml-2">
     Change to English
   </button>
-  <button class="btn btn-accent mt-4 ml-2">
+  <button (click)="changeLocale('es-CO')" class="btn btn-accent mt-4 ml-2">
     Cambiar a español
+  </button>
+  <button (click)="changeLocale('ja')" class="btn btn-primary mt-4 ml-2">
+    日本語に変更
   </button>
 
 </div>
