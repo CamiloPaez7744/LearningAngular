@@ -1,0 +1,9 @@
+<nav>
+  <ul class="menu menu-horizontal bg-base-200 rounded-box">
+    @for (route of routes; track $index) {
+      <li>
+        <a [routerLink]="route.path" routerLinkActive="text-accent">{{ route.title }}</a>
+      </li>
+    }
+  </ul>
+</nav>

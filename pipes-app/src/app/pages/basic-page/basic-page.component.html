@@ -1,0 +1,115 @@
+<section class="my-7">
+  <h1 class="text-3xl font-bold">Basic Page</h1>
+  <h3 class="text-xl font-thin">Pipes includes in angular</h3>
+</section>
+<div class="stats shadow">
+  <div class="stat place-items-center">
+    <div class="stat-title">LowerCase Pipe</div>
+    <div class="stat-value">{{ nameUpper() | lowercase }}</div>
+    <div class="stat-desc">{{ nameUpper() }}</div>
+  </div>
+
+  <div class="stat place-items-center">
+    <div class="stat-title">UpperCase Pipe</div>
+    <div class="stat-value text-secondary">{{ nameLower() | uppercase }}</div>
+    <div class="stat-desc text-secondary">{{ nameLower() }}</div>
+  </div>
+
+  <div class="stat place-items-center">
+    <div class="stat-title">TitleCase Pipe</div>
+    <div class="stat-value">{{ fullName() | titlecase }}</div>
+    <div class="stat-desc">{{ fullName() }}</div>
+  </div>
+
+  <div class="stat place-items-center">
+    <div class="stat-title">Slice Pipe</div>
+    <div class="stat-value text-secondary">{{ fullName() | slice : 0 : 7 }}</div>
+    <div class="stat-desc text-secondary">{{ fullName() }}</div>
+  </div>
+</div>
+
+<div class="divider my-7"></div>
+
+<div class="stats shadow">
+  <div class="stat place-items-center">
+    <div class="stat-title">Date Pipe</div>
+    <div class="stat-value">{{ customDate() | date }}</div>
+    <div class="stat-desc">{{ customDate() }}</div>
+  </div>
+
+  <div class="stat place-items-center">
+    <div class="stat-title">Date long GMT</div>
+    <div class="stat-value text-secondary">{{ customDate() | date : 'long' : 'GMT-1' }}</div>
+    <div class="stat-desc text-secondary">{{ customDate() }}</div>
+  </div>
+</div>
+
+<div class="stats shadow">
+  <div class="stat place-items-center">
+    <div class="stat-title">Date short</div>
+    <div class="stat-value">{{ customDate() | date : 'short' }}</div>
+    <div class="stat-desc">{{ customDate() }}</div>
+  </div>
+
+  <div class="stat place-items-center">
+    <div class="stat-title">Full</div>
+    <div class="stat-value text-secondary">{{ customDate() | date : 'full' }}</div>
+    <div class="stat-desc text-secondary">{{ customDate() }}</div>
+  </div>
+</div>
+
+<div class="stats shadow">
+  <div class="stat place-items-center">
+    <div class="stat-title">Date shortTime</div>
+    <div class="stat-value">{{ customDate() | date : 'shortTime' }}</div>
+    <div class="stat-desc">{{ customDate() }}</div>
+  </div>
+
+  <div class="stat place-items-center">
+    <div class="stat-title">Custom Date</div>
+    <div class="stat-value text-secondary">
+      {{ customDate() | date : 'G GGGG GGGGG yyy-MM-dd HH:mm:ss.SSS ZZZZ' }}
+    </div>
+    <div class="stat-desc text-secondary">{{ customDate() }}</div>
+  </div>
+</div>
+
+<div class="divider my-7"></div>
+
+<div class="stats shadow">
+  <div class="stat place-items-center">
+    <div class="stat-title">Date</div>
+    <div class="stat-value">{{ customDate() | date : 'dd/MM/yyyy' }}</div>
+    <div class="stat-desc">{{ customDate() }}</div>
+  </div>
+
+  <div class="stat place-items-center">
+    <div class="stat-title">Hour</div>
+    <div class="stat-value text-secondary">{{ customDate() | date : 'HH:mm:ss' }}</div>
+    <div class="stat-desc text-secondary">{{ customDate() }}</div>
+  </div>
+
+  <div class="stat place-items-center">
+    <div class="stat-title">Custom</div>
+    <div class="stat-value">{{ customDate() | date : 'EEEE d, MMMM y' }}</div>
+    <div class="stat-desc">{{ customDate() }}</div>
+  </div>
+</div>
+
+<div class="divider my-7"></div>
+
+<div>
+  <h1 class="text-3xl font-bold">Localization</h1>
+  <h3 class="text-xl font-thin">Current Language: es-CO</h3>
+
+  <button class="btn btn-primary mt-4">
+    Changer en français
+  </button>
+  <button class="btn btn-secondary mt-4 ml-2">
+    Change to English
+  </button>
+  <button class="btn btn-accent mt-4 ml-2">
+    Cambiar a español
+  </button>
+
+</div>
