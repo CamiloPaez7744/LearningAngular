@@ -1,2 +1,27 @@
+<h1>Countries by Region</h1>
+<h3>Select a region to view countries:</h3>
 
-<country-list [countries]="countries()"></country-list>
+<section class="flex flex-row gap-2 mt-2 mb-4 flex-wrap">
+  @for (region of regions; track $index) {
+  <button
+  class="btn mr-2 w-[120px]"
+  (click)="selectedRegion.set(region)"
+  data-theme="fantasy"
+  [class.btn-secondary]="region === selectedRegion()"
+  [class.btn-outline]="region !== selectedRegion()">
+    {{ region }}
+  </button>
+  }
+</section>
+
+<country-list
+  [countries]="regionResource.value() ?? []"
+  [errorMessage]="regionResource.error()"
+  [isLoading]="regionResource.isLoading()"
+  [isEmpty]="
+    (regionResource.value() ?? []).length === 0 &&
+    !regionResource.isLoading() &&
+    !regionResource.error()
+  "
+></country-list>
+<!-- <country-list [countries]="countries()"></country-list> -->

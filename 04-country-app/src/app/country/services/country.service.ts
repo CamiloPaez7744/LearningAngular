@@ -14,6 +14,7 @@ export class CountryService {
   private http = inject(HttpClient);
   private queryCacheCapital = new Map<string, Country[]>();
   private queryCacheCountry = new Map<string, Country[]>();
+  private queryCacheRegion = new Map<string, Country[]>();
 
   searchByCapital(capital: string): Observable<Country[]> {
     capital = capital.toLowerCase().trim();
@@ -60,6 +61,23 @@ export class CountryService {
       catchError((error) => {
         console.error({ error });
         return throwError(() => new Error(`Error fetching country with code "${code}"`));
+      })
+    );
+  }
+
+  searchByRegion(region: string): Observable<Country[]> {
+    region = region.toLowerCase().trim();
+
+    if (this.queryCacheRegion.has(region)) {
+      return of(this.queryCacheRegion.get(region)!);
+    }
+
+    return this.http.get<RESTCountry[]>(`${API_URL}/region/${region}`).pipe(
+      map(restCountry => CountryMapper.toCountries(restCountry)),
+      tap(countries => this.queryCacheRegion.set(region, countries)),
+      catchError((error) => {
+        console.error({ error });
+        return throwError(() => new Error(`Error fetching countries in region "${region}"`));
       })
     );
   }
