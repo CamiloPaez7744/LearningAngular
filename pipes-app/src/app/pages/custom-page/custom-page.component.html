@@ -52,12 +52,19 @@
           >
         </td>
         <td>
-          <span class="text-xs w-44"
-          [style.color]="item.color | heroColorCase">
-            {{ item.color | heroColorCase }}
+          <span class="text-xs w-44" [style.color]="item.color | heroMapColor">
+            {{ item.color | heroColorCase | titlecase }}
           </span>
         </td>
-        <td>{{ item.creator }}</td>
+        <td>
+          <span
+            class="text-xs w-44"
+            [class.text-primary]="item.creator % 2 === 0"
+            [class.text-secondary]="item.creator % 2 !== 0"
+          >
+            {{ item.creator | heroCreator }}
+          </span>
+        </td>
       </tr>
       }
     </tbody>
