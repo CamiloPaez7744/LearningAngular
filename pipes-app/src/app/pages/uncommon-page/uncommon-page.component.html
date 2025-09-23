@@ -42,4 +42,8 @@
       <button class="btn btn-primary" (click)="nextPage()">Next</button>
     </div>
   </app-card>
+
+  <app-card title="Json Pipe">
+    <pre class="text-primary">{{ clients() | json }}</pre>
+  </app-card>
 </div>
