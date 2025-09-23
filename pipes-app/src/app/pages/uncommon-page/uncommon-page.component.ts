@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { CardComponent } from "../../components/card/card.component";
-import { I18nSelectPipe } from '@angular/common';
+import { I18nPluralPipe, I18nSelectPipe } from '@angular/common';
 
 const client1 = {
   name: 'Bruce',
@@ -18,12 +18,14 @@ const client2 = {
 
 @Component({
   selector: 'app-uncommon-page',
-  imports: [CardComponent, I18nSelectPipe],
+  imports: [CardComponent, I18nSelectPipe, I18nPluralPipe],
   templateUrl: './uncommon-page.component.html',
 })
 export class UncommonPageComponent {
   // i18nSelect
   client = signal(client1);
+  clients = signal([client1, client2, client1, client2, client1, client2]);
+
   changeClient(): void {
     this.client.set(this.client() === client1 ? client2 : client1);
   }
@@ -31,5 +33,23 @@ export class UncommonPageComponent {
   invitationMap = {
     'Male': 'Sr.',
     'Female': 'Sra.',
+  }
+
+  clientsMap = {
+    '=0': 'no clients',
+    '=1': 'one client',
+    '=2': 'two clients',
+    'other': '# clients'
+  }
+
+  removeClient(): void {
+    const currentClients = this.clients();
+    currentClients.pop();
+    this.clients.set([...currentClients]);
+  }
+
+  addClient(): void {
+    const newClient = this.clients().length % 2 === 0 ? client1 : client2;
+    this.clients.set([...this.clients(), newClient]);
   }
  }

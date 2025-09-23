@@ -10,5 +10,14 @@
     </button>
   </app-card>
 
+  <app-card title="i18nPlural Pipe">
+    <p>We have {{ clients().length | i18nPlural: clientsMap }} waiting for you.</p>
+    <button class="btn btn-secondary btn-sm mt-2" (click)="removeClient()" [disabled]="clients().length === 0">
+      Remove Client
+    </button>
+    <button class="btn btn-primary btn-sm mt-2" (click)="addClient()">
+      Add Client
+    </button>
+  </app-card>
 </div>
 
