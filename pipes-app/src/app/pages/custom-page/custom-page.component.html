@@ -1,1 +1,65 @@
-<p>custom-page works!</p>,
+<section class="my-7">
+  <h1 class="text-3xl font-bold">Custom Page</h1>
+  <h3 class="text-xl font-thin">Pipes customization</h3>
+</section>
+<div class="stats shadow">
+  <div class="stat">
+    <div class="stat-title">Toggle Case Pipe</div>
+    <div class="stat-value">{{ sampleText() | toggleCase : upperCase() }}</div>
+    <div class="stat-desc">{{ sampleText() }}</div>
+    <button class="btn btn-accent" (click)="toggleCase()">Toggle Case</button>
+  </div>
+</div>
+
+<div class="divider my-4"></div>
+
+<section>
+  <h2 class="text-2xl font-bold">Heroes Table</h2>
+  <h3 class="text-lg font-thin">Using Custom Pipe</h3>
+  <div class="flex gap-2 justify-end w-full my-4">
+    <button class="btn btn-primary">By Name</button>
+    <button class="btn btn-accent">Can Fly?</button>
+    <button class="btn btn-secondary">By Color</button>
+    <button class="btn btn-success">By Creator</button>
+  </div>
+</section>
+
+<div class="overflow-x-auto w-full">
+  <table class="table table-xs w-full">
+    <!-- head -->
+    <thead>
+      <tr>
+        <th></th>
+        <th>Name</th>
+        <th>Can Fly?</th>
+        <th>Favorite Color</th>
+        <th>Created By</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- row 1 -->
+
+      @for (item of heroes(); track $index) {
+      <tr>
+        <th>{{ item.id }}</th>
+        <td>{{ item.name }}</td>
+        <td>
+          <span
+            class="text-xs w-44"
+            [class.text-primary]="item.canFly"
+            [class.text-secondary]="!item.canFly"
+            >{{ item.canFly | canFlyCase }}</span
+          >
+        </td>
+        <td>
+          <span class="text-xs w-44"
+          [style.color]="item.color | heroColorCase">
+            {{ item.color | heroColorCase }}
+          </span>
+        </td>
+        <td>{{ item.creator }}</td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>
