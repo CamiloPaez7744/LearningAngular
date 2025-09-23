@@ -1,15 +1,29 @@
 import { Component, signal } from '@angular/core';
-import { ToggleCasePipe } from '../../pipes/toggle-case.pipe';
-import { heroes } from '../../data/hero.data';
-import { canFlyCasePipe } from '../../pipes/can-fly-case.pipe';
-import { HeroColorCasePipe } from '../../pipes/hero-color-case.pipe';
-import { HeroMapColorPipe } from '../../pipes/hero-map-color.pipe';
 import { TitleCasePipe } from '@angular/common';
-import { HeroCreatorPipe } from '../../pipes/hero-creator.pipe';
+import { heroes } from '../../data/hero.data';
+import { Hero } from '../../interfaces/hero.interface';
+import {
+  canFlyCasePipe,
+  HeroColorCasePipe,
+  HeroCreatorPipe,
+  HeroMapColorPipe,
+  HeroSortByPipe,
+  ToggleCasePipe,
+  HeroFilterPipe
+} from '../../pipes';
 
 @Component({
   selector: 'app-custom-page',
-  imports: [ToggleCasePipe, canFlyCasePipe, HeroColorCasePipe, HeroMapColorPipe, TitleCasePipe, HeroCreatorPipe],
+  imports: [
+    ToggleCasePipe,
+    canFlyCasePipe,
+    HeroColorCasePipe,
+    HeroMapColorPipe,
+    TitleCasePipe,
+    HeroCreatorPipe,
+    HeroSortByPipe,
+    HeroFilterPipe
+],
   templateUrl: './custom-page.component.html',
 })
 export class CustomPageComponent {
@@ -17,8 +31,10 @@ export class CustomPageComponent {
 
   upperCase = signal(true);
   heroes = signal(heroes);
+  sortBy = signal<keyof Hero | null>(null);
+  searchTerm = signal('');
 
   toggleCase() {
     this.upperCase.set(!this.upperCase());
   }
- }
+}
