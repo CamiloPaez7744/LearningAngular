@@ -1,6 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { CardComponent } from "../../components/card/card.component";
-import { I18nPluralPipe, I18nSelectPipe, JsonPipe, KeyValuePipe, SlicePipe, TitleCasePipe } from '@angular/common';
+import { AsyncPipe, I18nPluralPipe, I18nSelectPipe, JsonPipe, KeyValuePipe, SlicePipe, TitleCasePipe } from '@angular/common';
+import { interval, tap } from 'rxjs';
 
 const client1 = {
   id: 1,
@@ -20,7 +21,7 @@ const client2 = {
 
 @Component({
   selector: 'app-uncommon-page',
-  imports: [CardComponent, I18nSelectPipe, I18nPluralPipe, SlicePipe, JsonPipe, KeyValuePipe, TitleCasePipe],
+  imports: [CardComponent, I18nSelectPipe, I18nPluralPipe, SlicePipe, JsonPipe, KeyValuePipe, TitleCasePipe, AsyncPipe],
   templateUrl: './uncommon-page.component.html',
 })
 export class UncommonPageComponent {
@@ -53,6 +54,18 @@ export class UncommonPageComponent {
     address: 'Ottawa, Canada',
     hobbies: ['Cooking', 'Sports', 'Reading']
   }
+
+  // Async Pipe
+  promiseValue: Promise<string> = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve('Async Pipe Value');
+      console.log('Promise resolved');
+    }, 2000);
+  });
+
+  MyObservableTimer = interval(2000).pipe(
+    tap(value => console.log('Observable emitted', value))
+  );
 
   removeClient(): void {
     const currentClients = this.clients();
