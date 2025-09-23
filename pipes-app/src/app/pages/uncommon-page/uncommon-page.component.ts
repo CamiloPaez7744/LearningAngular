@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { CardComponent } from "../../components/card/card.component";
-import { I18nPluralPipe, I18nSelectPipe, JsonPipe, SlicePipe } from '@angular/common';
+import { I18nPluralPipe, I18nSelectPipe, JsonPipe, KeyValuePipe, SlicePipe, TitleCasePipe } from '@angular/common';
 
 const client1 = {
   id: 1,
@@ -20,7 +20,7 @@ const client2 = {
 
 @Component({
   selector: 'app-uncommon-page',
-  imports: [CardComponent, I18nSelectPipe, I18nPluralPipe, SlicePipe, JsonPipe],
+  imports: [CardComponent, I18nSelectPipe, I18nPluralPipe, SlicePipe, JsonPipe, KeyValuePipe, TitleCasePipe],
   templateUrl: './uncommon-page.component.html',
 })
 export class UncommonPageComponent {
@@ -44,6 +44,14 @@ export class UncommonPageComponent {
     '=1': 'one client',
     '=2': 'two clients',
     'other': '# clients'
+  }
+
+  // keyValue Pipe
+  profile = {
+    name: 'Bruce',
+    age: 35,
+    address: 'Ottawa, Canada',
+    hobbies: ['Cooking', 'Sports', 'Reading']
   }
 
   removeClient(): void {

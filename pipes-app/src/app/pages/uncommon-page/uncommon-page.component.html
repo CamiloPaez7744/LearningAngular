@@ -46,4 +46,15 @@
   <app-card title="Json Pipe">
     <pre class="text-primary">{{ clients() | json }}</pre>
   </app-card>
+
+  <app-card title="KeyValue Pipe">
+    Original Object:
+    <pre>{{ profile | json }}</pre>
+    <!-- <pre>{{ profile | keyvalue | json }}</pre> -->
+     <ul>
+      @for (item of profile | keyvalue; track item.key) {
+        <li><b class="text-primary font-bold">{{ item.key | titlecase }}:</b> {{ item.value }}</li>
+      }
+     </ul>
+  </app-card>
 </div>
