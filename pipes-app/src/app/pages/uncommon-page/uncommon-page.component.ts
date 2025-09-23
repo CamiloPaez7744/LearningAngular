@@ -1,8 +1,9 @@
 import { Component, signal } from '@angular/core';
 import { CardComponent } from "../../components/card/card.component";
-import { I18nPluralPipe, I18nSelectPipe } from '@angular/common';
+import { I18nPluralPipe, I18nSelectPipe, SlicePipe } from '@angular/common';
 
 const client1 = {
+  id: 1,
   name: 'Bruce',
   gender: 'Male',
   age: 35,
@@ -10,6 +11,7 @@ const client1 = {
 }
 
 const client2 = {
+  id: 2,
   name: 'Diana',
   gender: 'Female',
   age: 25,
@@ -18,13 +20,15 @@ const client2 = {
 
 @Component({
   selector: 'app-uncommon-page',
-  imports: [CardComponent, I18nSelectPipe, I18nPluralPipe],
+  imports: [CardComponent, I18nSelectPipe, I18nPluralPipe, SlicePipe],
   templateUrl: './uncommon-page.component.html',
 })
 export class UncommonPageComponent {
   // i18nSelect
   client = signal(client1);
   clients = signal([client1, client2, client1, client2, client1, client2]);
+  start = signal(0);
+  end = signal(3);
 
   changeClient(): void {
     this.client.set(this.client() === client1 ? client2 : client1);
@@ -52,4 +56,14 @@ export class UncommonPageComponent {
     const newClient = this.clients().length % 2 === 0 ? client1 : client2;
     this.clients.set([...this.clients(), newClient]);
   }
- }
+
+  nextPage() {
+    this.start.set(this.start() + 3);
+    this.end.set(this.end() + 3);
+  }
+
+  prevPage() {
+    this.start.set(Math.max(this.start() - 3, 0));
+    this.end.set(Math.max(this.end() - 3, 3));
+  }
+}

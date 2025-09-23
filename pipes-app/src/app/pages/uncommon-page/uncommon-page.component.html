@@ -4,20 +4,42 @@
 </section>
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
   <app-card title="i18nSelect Pipe">
-    <p>Greetings {{ client().gender | i18nSelect: invitationMap}} {{ client().name }}, it's a pleasure to invite you to our platform.</p>
-    <button class="btn btn-primary btn-sm mt-2" (click)="changeClient()">
-      Change Client
-    </button>
+    <p>
+      Greetings {{ client().gender | i18nSelect : invitationMap }} {{ client().name }}, it's a
+      pleasure to invite you to our platform.
+    </p>
+    <button class="btn btn-primary btn-sm mt-2" (click)="changeClient()">Change Client</button>
   </app-card>
 
   <app-card title="i18nPlural Pipe">
-    <p>We have {{ clients().length | i18nPlural: clientsMap }} waiting for you.</p>
-    <button class="btn btn-secondary btn-sm mt-2" (click)="removeClient()" [disabled]="clients().length === 0">
+    <p>We have {{ clients().length | i18nPlural : clientsMap }} waiting for you.</p>
+    <button
+      class="btn btn-secondary btn-sm mt-2"
+      (click)="removeClient()"
+      [disabled]="clients().length === 0"
+    >
       Remove Client
     </button>
-    <button class="btn btn-primary btn-sm mt-2" (click)="addClient()">
-      Add Client
-    </button>
+    <button class="btn btn-primary btn-sm mt-2" (click)="addClient()">Add Client</button>
+  </app-card>
+
+  <app-card title="Slice Pipe">
+    <b>Original</b>
+    <ul>
+      @for (client of clients(); track client.id) {
+      <li>{{ client.name }} - {{ client.id }}</li>
+      }
+    </ul>
+    <b class="mt-4">Sliced</b>
+    <ul>
+      @for (client of clients() | slice:start():end(); track client.id) {
+      <li>{{ client.name }} - {{ client.id }}</li>
+      }
+    </ul>
+
+    <div class="flex gap-2 mt-2">
+      <button class="btn btn-secondary" (click)="prevPage()">Prev</button>
+      <button class="btn btn-primary" (click)="nextPage()">Next</button>
+    </div>
   </app-card>
 </div>
-
