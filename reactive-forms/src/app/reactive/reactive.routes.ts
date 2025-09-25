@@ -8,14 +8,17 @@ export const reactiveRoutes: Routes = [
     children: [
       {
         path: 'basic',
+        title: 'Basic',
         component: BasicPageComponent,
       },
       {
         path: 'dynamic',
+        title: 'Dynamic',
         component: DynamicPageComponent,
       },
       {
         path: 'switches',
+        title: 'Switches',
         loadComponent: () => import('./pages/switches-page/switches-page.component').then( c => c.SwitchesPageComponent )
       },
       {
