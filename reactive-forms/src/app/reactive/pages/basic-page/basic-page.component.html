@@ -3,7 +3,7 @@
 
 <div class="row">
   <div class="col">
-    <form autocomplete="off" [formGroup]="myForm">
+    <form autocomplete="off" [formGroup]="myForm" (ngSubmit)="onSave()">
       <!-- Campo de producto -->
       <div class="mb-3 row">
         <label class="col-sm-3 col-form-label">Producto</label>
@@ -14,9 +14,9 @@
             placeholder="Nombre del producto"
             formControlName="name"
           />
-          @if (isValidField('name')) {
+          @if (formUtil.isValidField(myForm, 'name')) {
           <span class="form-text text-danger">
-            {{ getFieldError('name') }}
+            {{ formUtil.getFieldError(myForm, 'name') }}
           </span>
           }
         </div>
@@ -32,9 +32,9 @@
             placeholder="Precio del producto"
             formControlName="price"
           />
-          @if (isValidField('price')) {
+          @if (formUtil.isValidField(myForm, 'price')) {
           <span class="form-text text-danger">
-            {{ getFieldError('price') }}
+            {{ formUtil.getFieldError(myForm, 'price') }}
           </span>
           }
         </div>
@@ -50,9 +50,9 @@
             placeholder="Existencias del producto"
             formControlName="inStorage"
           />
-          @if (isValidField('inStorage')) {
+          @if (formUtil.isValidField(myForm, 'inStorage')) {
           <span class="form-text text-danger">
-            {{ getFieldError('inStorage') }}
+            {{ formUtil.getFieldError(myForm, 'inStorage') }}
           </span>
           }
         </div>
