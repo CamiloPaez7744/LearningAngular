@@ -1,4 +1,8 @@
-import { FormArray, FormGroup, ValidationErrors } from '@angular/forms';
+import { AbstractControl, FormArray, FormGroup, ValidationErrors } from '@angular/forms';
+
+async function sleep() {
+  return new Promise((resolve) => setTimeout(resolve, 1500));
+}
 
 export class FormUtil {
   static namePattern = '^([a-zA-Z]+) ([a-zA-Z]+)$';
@@ -44,5 +48,40 @@ export class FormUtil {
     if (!FormArray.at(index)) return null;
     const errors = FormArray.at(index).errors || {};
     return FormUtil.getTextError(errors);
+  }
+
+  static isFieldOneEqualToFieldTwo(fieldOne: string, fieldTwo: string) {
+    return (formGroup: AbstractControl) => {
+      const valueOne = formGroup.get(fieldOne)?.value;
+      const valueTwo = formGroup.get(fieldTwo)?.value;
+
+      if (valueOne !== valueTwo) {
+        formGroup.get(fieldTwo)?.setErrors({ notEqual: true });
+        return { notEqual: true };
+      } else {
+        if (formGroup.get(fieldTwo)?.hasError('notEqual')) {
+          formGroup.get(fieldTwo)?.setErrors(null);
+        }
+        return null;
+      }
+    }
+  }
+
+  static async checkingServerResponse(control: AbstractControl): Promise<ValidationErrors | null> {
+    await sleep();
+    const formValue = control.value;
+    if (formValue === 'strider' || formValue === 'mail@mail.com') {
+      return Promise.resolve({ notAvailable: true });
+    } else {
+      return Promise.resolve(null);
+    }
+  }
+
+  static notStrider(control: AbstractControl): ValidationErrors | null {
+    const formValue = control.value;
+    if (formValue?.toLowerCase() === 'strider') {
+      return { notStrider: true };
+    }
+    return null;
   }
 }

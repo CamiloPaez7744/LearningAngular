@@ -1,6 +1,6 @@
 import { JsonPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FormUtil } from '../../../utils/form.util';
 
 @Component({
@@ -14,10 +14,14 @@ export class RegisterPageComponent {
 
   myForm = this.fb.group({
     name: ['', [Validators.required, Validators.pattern(FormUtil.namePattern)]],
-    email: ['', [Validators.required, Validators.pattern(FormUtil.emailPattern)]],
-    username: ['', [Validators.required, Validators.pattern(FormUtil.notOnlySpacesPattern)]],
+    email: ['', [Validators.required, Validators.pattern(FormUtil.emailPattern)], [this.formUtil.checkingServerResponse]],
+    username: ['', [Validators.required, Validators.pattern(FormUtil.notOnlySpacesPattern), this.formUtil.notStrider]],
     password: ['', [Validators.required, Validators.pattern(FormUtil.passwordPattern)]],
     confirmPassword: ['', [Validators.required]],
+  }, {
+    validators: [
+      this.formUtil.isFieldOneEqualToFieldTwo('password', 'confirmPassword')
+    ]
   });
 
   onSubmit() {
