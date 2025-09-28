@@ -40,10 +40,11 @@
       <label class="form-label">Fronteras:</label>
       <select formControlName="border" class="form-control">
         <option value="">-- Seleccione la frontera --</option>
-
-        <!-- <option [value]="country.cca3">
-          {{ country.name }}
-        </option> -->
+        @for (country of bordersByCountry(); track $index) {
+          <option [value]="country.cca3">
+            {{ country.name.common }}
+          </option>
+        }
       </select>
     </div>
   </div>
@@ -53,4 +54,4 @@
 <code>
   {{ myForm.value | json }}
 </code>
-<p>is form valid: {{ 'myForm.valid' }}</p>
+<p>is form valid: {{ myForm.valid }}</p>
