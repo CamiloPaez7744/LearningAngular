@@ -6,6 +6,9 @@
         },
         "angular-component": {
             "skipChangeDetectionOnPush": true
+        },
+        "angular-page": {
+            "skipChangeDetectionOnPush": true
         }
     }
 }
