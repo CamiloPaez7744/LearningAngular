@@ -1,4 +1,15 @@
 <h1>Home Page</h1>
 <hr>
 
+<h2>Traditional Property</h2>
+<p>{{ traditionalProperty }}</p>
 
+<h2>Signal Property</h2>
+<p>{{ signalProperty() }}</p>
+
+<button (click)="changeTraditionalProperty()">change traditional</button>
+<button (click)="changeSignalProperty()">change signal</button>
+<hr>
+
+<app-title [title]="traditionalProperty"></app-title>
+<app-title [title]="signalProperty()"></app-title>

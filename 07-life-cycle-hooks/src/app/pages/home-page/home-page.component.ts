@@ -1,4 +1,5 @@
-import { afterNextRender, Component, effect, OnChanges, OnInit } from '@angular/core';
+import { afterNextRender, Component, effect, OnChanges, OnInit, signal } from '@angular/core';
+import { TitleComponent } from "../../components/navbar/title/title.component";
 
 const log = (...messages: string[]) => {
   console.log(`${messages[0]} %c${messages[1]}`, 'color: green; font-weight: bold;');
@@ -6,12 +7,30 @@ const log = (...messages: string[]) => {
 
 @Component({
   selector: 'app-home-page',
-  imports: [],
+  imports: [TitleComponent],
   templateUrl: './home-page.component.html',
 })
 export class HomePageComponent implements OnInit, OnChanges{
+
+  traditionalProperty = 'I am a traditional property';
+  signalProperty = signal('I am a signal property');
+
   constructor() {
     log('HomePageComponent', 'Constructor called');
+
+    // setTimeout(() => {
+    //   this.traditionalProperty = 'Traditional property changed after 2 seconds';
+    //   console.log('Traditional property changed after 2 seconds');
+    //   // this.signalProperty.set('Signal property changed after 2 seconds');
+    // }, 2000);
+  }
+
+  changeTraditionalProperty() {
+    this.traditionalProperty = 'Traditional property changed';
+  }
+
+  changeSignalProperty() {
+    this.signalProperty.set('Signal property changed');
   }
 
   basicEffect = effect((onCleanup) => {
