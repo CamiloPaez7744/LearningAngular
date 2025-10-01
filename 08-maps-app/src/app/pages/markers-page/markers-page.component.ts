@@ -73,11 +73,12 @@ export class MarkersPageComponent implements AfterViewInit {
     const { lng, lat } = marker.mapboxgl.getLngLat();
     this.map()?.flyTo({
       center: [lng, lat],
-      zoom: 14
+      zoom: 8
     });
   }
 
   removeMarker(marker: Marker) {
+    if (!this.map()) return;
     marker.mapboxgl.remove();
     this.markers.update(markers => markers.filter(m => m.id !== marker.id));
   }

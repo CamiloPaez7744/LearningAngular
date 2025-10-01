@@ -6,6 +6,7 @@
     @for (marker of markers(); track marker.id) {
     <div class="form-control"
       (click)="flyToMarker(marker)"
+      (dblclick)="removeMarker(marker)"
     >
       <label class="label cursor-pointer">
         <span class="label-text text-cyan-800 text-xs">
