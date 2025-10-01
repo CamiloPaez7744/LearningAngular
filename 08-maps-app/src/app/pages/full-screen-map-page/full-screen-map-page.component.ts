@@ -2,12 +2,12 @@
 import { AfterViewInit, Component, effect, ElementRef, signal, viewChild } from '@angular/core';
 import mapboxgl from 'mapbox-gl';
 import { environment } from '../../../environments/environment';
-import { DecimalPipe } from '@angular/common';
+import { DecimalPipe, JsonPipe } from '@angular/common';
 
 mapboxgl.accessToken = environment.mapboxKey;
 @Component({
   selector: 'app-full-screen-map-page',
-  imports: [DecimalPipe],
+  imports: [DecimalPipe, JsonPipe],
   templateUrl: './full-screen-map-page.component.html',
   styles: `
   div {
@@ -34,6 +34,10 @@ export class FullScreenMapPageComponent implements AfterViewInit {
   map = signal<mapboxgl.Map | null>(null);
 
   zoom = signal(5);
+  coordinates = signal({
+    lng: -74.0721,
+    lat: 4.7110
+  });
 
   zoomEffect = effect(() => {
     if (!this.map()) return;
@@ -43,10 +47,11 @@ export class FullScreenMapPageComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     if (!this.divElement()) return;
     const element = this.divElement();
+    const { lng, lat } = this.coordinates();
     const map = new mapboxgl.Map({
       container: element?.nativeElement,
       style: 'mapbox://styles/mapbox/streets-v11', // style URL
-      center: [-74.0721, 4.7110], // starting position [lng, lat]
+      center: [lng, lat], // starting position [lng, lat]
       zoom: this.zoom() // starting zoom
     });
     this.mapListeners(map);
@@ -57,6 +62,22 @@ export class FullScreenMapPageComponent implements AfterViewInit {
       const newZoom = event.target.getZoom();
       this.zoom.set(newZoom);
     });
+
+    map.on('move', () => {
+      const { lng, lat } = map.getCenter();
+      this.coordinates.set({ lng, lat });
+    });
+
+    map.addControl(new mapboxgl.FullscreenControl());
+    map.addControl(new mapboxgl.NavigationControl());
+    map.addControl(new mapboxgl.ScaleControl());
+    map.addControl(new mapboxgl.GeolocateControl({
+      positionOptions: {
+        enableHighAccuracy: true
+      },
+      trackUserLocation: true,
+      showUserHeading: true
+    }));
 
     this.map.set(map);
   }
