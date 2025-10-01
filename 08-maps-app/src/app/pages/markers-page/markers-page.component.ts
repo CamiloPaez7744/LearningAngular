@@ -3,15 +3,16 @@ import mapboxgl from 'mapbox-gl';
 import { environment } from '../../../environments/environment';
 import { generateNiceHexColor } from '../../utils/color.util';
 import { v4 as uuidv4 } from 'uuid';
+import { DecimalPipe, JsonPipe } from '@angular/common';
 
 mapboxgl.accessToken = environment.mapboxKey;
 interface Marker {
   id: string;
-  marker?: mapboxgl.Marker;
+  mapboxgl: mapboxgl.Marker;
 }
 @Component({
   selector: 'app-markers-page',
-  imports: [],
+  imports: [DecimalPipe, JsonPipe],
   templateUrl: './markers-page.component.html',
 })
 export class MarkersPageComponent implements AfterViewInit {
@@ -62,8 +63,22 @@ export class MarkersPageComponent implements AfterViewInit {
     const marker = new mapboxgl.Marker({ color: generateNiceHexColor() })
       .setLngLat([lng, lat])
       .addTo(this.map()!);
-    const newMarker: Marker = { id: uuidv4(), marker };
+    const newMarker: Marker = { id: uuidv4(), mapboxgl: marker };
     this.markers.update(markers => [newMarker, ...markers]);
     console.log(this.markers());
+  }
+
+  flyToMarker(marker: Marker) {
+    if (!this.map()) return;
+    const { lng, lat } = marker.mapboxgl.getLngLat();
+    this.map()?.flyTo({
+      center: [lng, lat],
+      zoom: 14
+    });
+  }
+
+  removeMarker(marker: Marker) {
+    marker.mapboxgl.remove();
+    this.markers.update(markers => markers.filter(m => m.id !== marker.id));
   }
 }
