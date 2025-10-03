@@ -1,1 +1,28 @@
-<p>houses-page works!</p>,
+<section class="container mx-auto">
+  <h2 class="text-2xl font-bold mb-4">Houses Page</h2>
+  <h3 class="text-xl font-bold mb-2">Available Houses</h3>
+</section>
+
+<section class="grid grid-cols-1 md:grid-cols-3 gap-4 container mx-auto my-8">
+  @for (house of houses(); track house.id; let i = $index) {
+  <div class="card bg-base-100 shadow-sm">
+    <app-mini-map [lnglat]="house.lngLat"></app-mini-map>
+    <div class="card-body">
+      <h2 class="card-title">
+        {{ house.name }} - ${{ house.price }}
+        @if(i === 1) {
+          <div class="badge badge-secondary">NEW</div>
+        }
+      </h2>
+      <p>
+        {{ house.description }}
+      </p>
+      <div class="card-actions justify-end">
+        @for (tag of house.tags; track $index) {
+          <div class="badge badge-outline badge-info">{{ tag }}</div>
+        }
+      </div>
+    </div>
+  </div>
+  }
+</section>
