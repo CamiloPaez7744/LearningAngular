@@ -31,8 +31,11 @@ export class MarkersPageComponent implements AfterViewInit {
     this.map()?.setZoom(this.zoom());
   });
 
-  ngAfterViewInit(): void {
+  async ngAfterViewInit(): Promise<void> {
     if (!this.divElement()) return;
+
+    await new Promise((resolve) => setTimeout(resolve, 80));
+
     const element = this.divElement();
     const { lng, lat } = this.coordinates();
     const map = new mapboxgl.Map({
