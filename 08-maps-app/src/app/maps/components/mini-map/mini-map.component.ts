@@ -3,7 +3,6 @@ import mapboxgl from 'mapbox-gl';
 import { generateNiceHexColor } from '../../../utils/color.util';
 import { v4 as uuidv4 } from 'uuid';
 import { environment } from '../../../../environments/environment';
-import { DecimalPipe, JsonPipe } from '@angular/common';
 
 mapboxgl.accessToken = environment.mapboxKey;
 interface Marker {
@@ -13,7 +12,7 @@ interface Marker {
 
 @Component({
   selector: 'app-mini-map',
-  imports: [DecimalPipe, JsonPipe],
+  imports: [],
   templateUrl: './mini-map.component.html',
   styles: `
   div {
