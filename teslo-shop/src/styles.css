@@ -1,63 +1,97 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Alan+Sans:wght@300..900&family=Caveat:wght@400..700&family=Dosis:wght@200..800&family=Jost:ital,wght@0,100..900;1,100..900&family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Permanent+Marker&display=swap');
+
+/* Import Tailwind */
 @import 'tailwindcss';
+
+@font-face {
+  font-family: "Montserrat";
+  src: url('/assets/fonts/montserrat/montserrat-medium.ttf') format('truetype');
+}
+
+/* Define your variables @theme */
+@theme {
+  /* Define custom font families */
+  --font-sans: 'Mulish', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+
+  --font-jost: 'Jost', sans-serif;
+  --font-dosis: 'Dosis', sans-serif;
+  --font-alan: 'Alan Sans', sans-serif;
+  --font-caveat: 'Caveat', cursive;
+  --font-marker: 'Permanent Marker', cursive;
+  --font-montserrat: 'Montserrat', sans-serif;
+
+  --font-display: var(--font-jost);
+  --font-handwritten: var(--font-caveat);
+}
+
+/* Apply the font globally to html/body */
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    color: var(--color-base-content);
+    background-color: var(--color-base-100);
+  }
+}
 @plugin "daisyui";
 @plugin "daisyui/theme" {
-  name: "tomorrow-night-blue";
+  name: 'tomorrow-night-blue';
   default: false;
-  prefersdark: true; /* Se establece como predeterminado para el modo oscuro */
-  color-scheme: dark; /* El esquema de color prefiere el modo oscuro */
+  prefersdark: true; /* Set as default for dark mode */
+  color-scheme: dark; /* Color scheme prefers dark mode */
 
-  /* --- Colores de Base (Fondo azul oscuro de Tomorrow Night Blue) --- */
-  /* Base 100: El azul oscuro principal del fondo */
+  /* --- Base Colors (Tomorrow Night Blue dark blue background) --- */
+  /* Base 100: Main dark blue background */
   --color-base-100: #002451;
-  /* Base 200: Un tono ligeramente más claro para elementos sutiles */
+  /* Base 200: Slightly lighter shade for subtle elements */
   --color-base-200: #00366a;
-  /* Base 300: Un tono intermedio para fondos secundarios o tarjetas */
+  /* Base 300: Intermediate shade for secondary backgrounds or cards */
   --color-base-300: #004983;
-  /* Base Content: El color de primer plano (texto) */
-  --color-base-content: #ffffff; /* Blanco claro o un gris muy claro */
+  /* Base Content: Foreground color (text) */
+  --color-base-content: #ffffff; /* Light white or very light gray */
 
-  /* --- Colores Primarios y de Estado (Colores vibrantes de sintaxis) --- */
+  /* --- Primary and State Colors (Vibrant syntax colors) --- */
 
-  /* Primary: Azul claro/cian, utilizado para botones principales o enlaces */
+  /* Primary: Light blue/cyan, used for main buttons or links */
   --color-primary: #77c6ff;
-  /* Primary Content: Color de texto sobre el color primary */
-  --color-primary-content: #002451; /* Azul oscuro para un buen contraste */
+  /* Primary Content: Text color on primary color */
+  --color-primary-content: #002451; /* Dark blue for good contrast */
 
-  /* Secondary: Púrpura/Magenta, para elementos secundarios */
+  /* Secondary: Purple/Magenta, for secondary elements */
   --color-secondary: #ff9da4;
-  /* Secondary Content: Color de texto sobre el color secondary */
+  /* Secondary Content: Text color on secondary color */
   --color-secondary-content: #002451;
 
-  /* Accent: Amarillo/Naranja, para acentos o resaltados */
+  /* Accent: Yellow/Orange, for accents or highlights */
   --color-accent: #ffd359;
-  /* Accent Content: Color de texto sobre el color accent */
+  /* Accent Content: Text color on accent color */
   --color-accent-content: #002451;
 
-  /* Neutral: Un gris para elementos neutros */
+  /* Neutral: A gray for neutral elements */
   --color-neutral: #4a596f;
-  /* Neutral Content: Color de texto sobre el color neutral */
+  /* Neutral Content: Text color on neutral color */
   --color-neutral-content: #ffffff;
 
-  /* Info: Cian/Azul, similar al Primary pero con un uso más informativo */
+  /* Info: Cyan/Blue, similar to Primary but for more informative use */
   --color-info: #5ccbfa;
   --color-info-content: #002451;
 
-  /* Success: Verde para mensajes de éxito */
+  /* Success: Green for success messages */
   --color-success: #b9ca4a;
   --color-success-content: #002451;
 
-  /* Warning: Amarillo/Naranja para advertencias */
+  /* Warning: Yellow/Orange for warnings */
   --color-warning: #ff863b;
   --color-warning-content: #002451;
 
-  /* Error: Rojo para mensajes de error */
+  /* Error: Red for error messages */
   --color-error: #ef6461;
   --color-error-content: #002451;
 
-  /* --- Border radius, sizes y effects --- */
+  /* --- Border radius, sizes and effects --- */
 
-  /* Hemos mantenido los valores predeterminados de tu solicitud para estos, pero puedes ajustarlos */
+  /* Default values maintained, but you can adjust them */
   --radius-selector: 1rem;
   --radius-field: 0.25rem;
   --radius-box: 0.5rem;
