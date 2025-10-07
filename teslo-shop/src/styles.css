@@ -1,0 +1,69 @@
+/* You can add global styles to this file, and also import other style files */
+@import 'tailwindcss';
+@plugin "daisyui";
+@plugin "daisyui/theme" {
+  name: "tomorrow-night-blue";
+  default: false;
+  prefersdark: true; /* Se establece como predeterminado para el modo oscuro */
+  color-scheme: dark; /* El esquema de color prefiere el modo oscuro */
+
+  /* --- Colores de Base (Fondo azul oscuro de Tomorrow Night Blue) --- */
+  /* Base 100: El azul oscuro principal del fondo */
+  --color-base-100: #002451;
+  /* Base 200: Un tono ligeramente más claro para elementos sutiles */
+  --color-base-200: #00366a;
+  /* Base 300: Un tono intermedio para fondos secundarios o tarjetas */
+  --color-base-300: #004983;
+  /* Base Content: El color de primer plano (texto) */
+  --color-base-content: #ffffff; /* Blanco claro o un gris muy claro */
+
+  /* --- Colores Primarios y de Estado (Colores vibrantes de sintaxis) --- */
+
+  /* Primary: Azul claro/cian, utilizado para botones principales o enlaces */
+  --color-primary: #77c6ff;
+  /* Primary Content: Color de texto sobre el color primary */
+  --color-primary-content: #002451; /* Azul oscuro para un buen contraste */
+
+  /* Secondary: Púrpura/Magenta, para elementos secundarios */
+  --color-secondary: #ff9da4;
+  /* Secondary Content: Color de texto sobre el color secondary */
+  --color-secondary-content: #002451;
+
+  /* Accent: Amarillo/Naranja, para acentos o resaltados */
+  --color-accent: #ffd359;
+  /* Accent Content: Color de texto sobre el color accent */
+  --color-accent-content: #002451;
+
+  /* Neutral: Un gris para elementos neutros */
+  --color-neutral: #4a596f;
+  /* Neutral Content: Color de texto sobre el color neutral */
+  --color-neutral-content: #ffffff;
+
+  /* Info: Cian/Azul, similar al Primary pero con un uso más informativo */
+  --color-info: #5ccbfa;
+  --color-info-content: #002451;
+
+  /* Success: Verde para mensajes de éxito */
+  --color-success: #b9ca4a;
+  --color-success-content: #002451;
+
+  /* Warning: Amarillo/Naranja para advertencias */
+  --color-warning: #ff863b;
+  --color-warning-content: #002451;
+
+  /* Error: Rojo para mensajes de error */
+  --color-error: #ef6461;
+  --color-error-content: #002451;
+
+  /* --- Border radius, sizes y effects --- */
+
+  /* Hemos mantenido los valores predeterminados de tu solicitud para estos, pero puedes ajustarlos */
+  --radius-selector: 1rem;
+  --radius-field: 0.25rem;
+  --radius-box: 0.5rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 1;
+  --noise: 0;
+}
