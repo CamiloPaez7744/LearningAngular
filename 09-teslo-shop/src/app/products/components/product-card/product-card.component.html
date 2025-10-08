@@ -6,7 +6,8 @@
     />
   </figure>
   <div class="card-body">
-    <h2 class="card-title font-sans text-secondary text-xl">{{ product().title }}</h2>
+    <h2 class="card-title font-sans text-secondary text-xl hover:underline cursor-pointer"
+    [routerLink]="['/product', product().slug]">{{ product().title }}</h2>
     <p>
       Description:
       {{
@@ -17,7 +18,7 @@
       Price: ${{ product().price }} <br />
     </p>
     <div class="card-actions justify-end">
-      <a class="btn btn-primary" [routerLink]="['/products', product().slug]">More</a>
+      <a class="btn btn-primary" [routerLink]="['/product', product().slug]">More</a>
     </div>
   </div>
 </div>
