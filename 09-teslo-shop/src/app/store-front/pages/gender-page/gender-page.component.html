@@ -1,1 +1,11 @@
-<p>gender-page works!</p>,
+<h1 class="text-3xl font-bold">All Products</h1>
+<h2 class="text-2xl mb-4">For {{ gender() }}</h2>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-4">
+  @for (product of products.value()?.products; track $index) {
+    <product-card [product]="product"></product-card>
+  }
+  @empty {
+    <p class="text-center text-lg">No products available</p>
+  }
+</div>
