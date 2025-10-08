@@ -1,17 +1,23 @@
 <div class="card bg-base-100 shadow-xl shadow-black/75 animate-appear">
   <figure>
     <img
-      src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-      alt="Shoes"
+      [src]="product().images | productImage"
+      [alt]="product().title"
     />
   </figure>
   <div class="card-body">
-    <h2 class="card-title">Card Title</h2>
+    <h2 class="card-title font-sans text-secondary text-xl">{{ product().title }}</h2>
     <p>
-      A card component has a figure, a body part, and inside body there are title and actions parts
+      Description:
+      {{
+        product().description.length > 100
+          ? (product().description | slice:0:100) + ' ...'
+          : product().description
+      }} <br />
+      Price: ${{ product().price }} <br />
     </p>
     <div class="card-actions justify-end">
-      <a class="btn btn-primary" [routerLink]="['/products', product.id]">More</a>
+      <a class="btn btn-primary" [routerLink]="['/products', product().slug]">More</a>
     </div>
   </div>
 </div>

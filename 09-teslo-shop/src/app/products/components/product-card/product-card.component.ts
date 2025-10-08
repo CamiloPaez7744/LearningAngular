@@ -1,17 +1,14 @@
-import { Component } from '@angular/core';
+import { SlicePipe } from '@angular/common';
+import { Component, computed, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { Product } from '@products/interfaces/product-response.interface';
+import { ProductImagePipe } from '@products/pipes/product-image.pipe';
 
 @Component({
   selector: 'product-card',
-  imports: [RouterLink],
+  imports: [RouterLink, SlicePipe, ProductImagePipe],
   templateUrl: './product-card.component.html',
 })
 export class ProductCardComponent {
-  public product = {
-    id: 1,
-    title: 'Product Title',
-    images: ['https://angular.io/assets/images/logos/angular/angular.png'],
-    price: 123,
-    slug: 'product-title'
-  };
+  product = input.required<Product>();
 }
