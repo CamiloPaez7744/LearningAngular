@@ -9,3 +9,8 @@
     <p class="text-center text-lg">No products available</p>
   }
 </div>
+
+<app-pagination
+  [pages]="products.value()?.pages ?? 0"
+  [currentPage]="paginationService.currentPage()"
+></app-pagination>

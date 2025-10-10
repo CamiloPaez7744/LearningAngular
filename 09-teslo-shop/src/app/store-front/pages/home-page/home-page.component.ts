@@ -6,6 +6,7 @@ import { ProductsService } from '@products/services/products.service';
 import { map, of, tap } from 'rxjs';
 import { PaginationComponent } from "@shared/components/pagination/pagination.component";
 import { ActivatedRoute } from '@angular/router';
+import { PaginationService } from '@shared/components/pagination/pagination.service';
 
 @Component({
   selector: 'app-home-page',
@@ -14,20 +15,11 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class HomePageComponent {
   private productsService = inject(ProductsService);
+  paginationService = inject(PaginationService);
   product = signal<Product[] | null>(null);
 
-  activatedRoute = inject(ActivatedRoute);
-  currentPage = toSignal(this.activatedRoute.queryParamMap.pipe(
-    map(params => params.get('page') ? +params.get('page')! : 1),
-    map(page => (isNaN(page) || page < 1 ? 1 : page)),
-  ),
-    {
-      initialValue: 1,
-    }
-  );
-
   productsResource = rxResource({
-    params: () => ({ page: this.currentPage() }),
+    params: () => ({ page: this.paginationService.currentPage() }),
     stream: ({ params }) => {
       return this.productsService.getAllProducts({
         offset: (params.page - 1) * 10,
