@@ -1,7 +1,7 @@
 <h1 class="text-3xl font-bold">All Products</h1>
 <h2 class="text-2xl mb-4">For all your needs</h2>
 
-<app-pagination [pages]="productsResource.value()?.pages ?? 0"></app-pagination>
+<app-pagination [pages]="productsResource.value()?.pages ?? 0" [currentPage]="currentPage()"></app-pagination>
 
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-4">
   @for (product of product(); track $index) {
