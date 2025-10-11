@@ -14,5 +14,6 @@
     "cSpell.words": [
         "mapbox",
         "mapboxgl"
-    ]
+    ],
+    "vsicons.presets.angular": true
 }
