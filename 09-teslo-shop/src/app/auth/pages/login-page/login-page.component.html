@@ -1,4 +1,4 @@
-<form class="flex flex-col gap-4 my-4 p-4">
+<form class="flex flex-col gap-4 my-4 p-4" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
   <label class="flex items-center gap-2 input w-full">
     <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
       <g
@@ -14,7 +14,7 @@
         <path d="M23 11h-6"></path>
       </g>
     </svg>
-    <input type="text" class="grow" placeholder="Username" />
+    <input type="text" class="grow" placeholder="Email" formControlName="email" />
   </label>
   <label class="flex items-center gap-2 input w-full">
     <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -29,7 +29,7 @@
         <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
       </g>
     </svg>
-    <input type="password" class="grow" placeholder="Password" />
+    <input type="password" class="grow" placeholder="Password" formControlName="password" />
   </label>
   <button class="btn btn-primary w-full">Login</button>
 
@@ -38,3 +38,22 @@
     <a routerLink="/auth/register" class="text-blue-600 hover:underline">Register</a>
   </p>
 </form>
+
+@if (hasError()) {
+<div role="alert" class="alert alert-error animate-appear fixed bottom-4 right-4 w-56">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    class="h-6 w-6 shrink-0 stroke-current"
+    fill="none"
+    viewBox="0 0 24 24"
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+    />
+  </svg>
+  <span>Error! Invalid email or password.</span>
+</div>
+}
