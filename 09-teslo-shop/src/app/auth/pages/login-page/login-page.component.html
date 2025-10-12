@@ -1,0 +1,40 @@
+<form class="flex flex-col gap-4 my-4 p-4">
+  <label class="flex items-center gap-2 input w-full">
+    <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <g
+        stroke-linejoin="round"
+        stroke-linecap="round"
+        stroke-width="2.5"
+        fill="none"
+        stroke="currentColor"
+      >
+        <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+        <circle cx="8.5" cy="7" r="4"></circle>
+        <path d="M20 8v6"></path>
+        <path d="M23 11h-6"></path>
+      </g>
+    </svg>
+    <input type="text" class="grow" placeholder="Username" />
+  </label>
+  <label class="flex items-center gap-2 input w-full">
+    <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <g
+        stroke-linejoin="round"
+        stroke-linecap="round"
+        stroke-width="2.5"
+        fill="none"
+        stroke="currentColor"
+      >
+        <rect x="3" y="11" width="18" height="11" rx="2"></rect>
+        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+      </g>
+    </svg>
+    <input type="password" class="grow" placeholder="Password" />
+  </label>
+  <button class="btn btn-primary w-full">Login</button>
+
+  <p class="mt-4 text-sm">
+    Don't have an account?
+    <a routerLink="/auth/register" class="text-blue-600 hover:underline">Register</a>
+  </p>
+</form>
