@@ -25,7 +25,7 @@ export class AuthService {
 
   authStatus = computed<AuthStatus>(() => {
     if (this._authStatus() === 'checking') return 'checking';
-    if (this._token() && this._user()) return 'authenticated';
+    if (this._user()) return 'authenticated';
     return 'not-authenticated';
   });
 
@@ -38,10 +38,7 @@ export class AuthService {
       { email, password }
     ).pipe(
       map((resp) => this.handleAuthSuccess(resp)),
-      catchError((error) => {
-        this.handleAuthError(error);
-        return of(false);
-      })
+      catchError((error) => this.handleAuthError(error))
     );
   }
 
@@ -55,18 +52,15 @@ export class AuthService {
   checkAuthStatus(): Observable<boolean> {
     const token = localStorage.getItem('token');
     if (!token) {
-      this._authStatus.set('not-authenticated');
+      this.logout();
       return of(false);
     }
 
     return this.http.get<AuthResponse>(`${BASE_URL}/auth/check-status`, {
-      headers: { Authorization: `Bearer ${token}` }
+      // headers: { Authorization: `Bearer ${token}` }
     }).pipe(
       map((resp) => this.handleAuthSuccess(resp)),
-      catchError((error) => {
-        this.handleAuthError(error);
-        return of(false);
-      })
+      catchError((error) => this.handleAuthError(error))
     );
   }
 
