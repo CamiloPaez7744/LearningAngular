@@ -1,4 +1,4 @@
-<form class="flex flex-col gap-4 my-4 p-4">
+<form class="flex flex-col gap-4 my-4 p-4" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
   <label class="flex items-center gap-2 input w-full">
     <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
       <g
@@ -14,7 +14,7 @@
         <path d="M23 11h-6"></path>
       </g>
     </svg>
-    <input type="text" class="grow" placeholder="Username" />
+    <input type="text" class="grow" placeholder="Email" formControlName="email" />
   </label>
   <label class="flex items-center gap-2 input w-full">
     <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -29,7 +29,7 @@
         <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
       </g>
     </svg>
-    <input #pwd type="password" class="grow" placeholder="Password" />
+    <input #pwd type="password" class="grow" placeholder="Password" formControlName="password" />
     <button
       type="button"
       class="opacity-60 hover:opacity-100"
@@ -49,10 +49,44 @@
       }
     </button>
   </label>
+  <label class="flex items-center gap-2 input w-full">
+    <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <g
+        stroke-linejoin="round"
+        stroke-linecap="round"
+        stroke-width="2.5"
+        fill="none"
+        stroke="currentColor"
+      >
+        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4z"></path>
+        <path d="M16.24 14.24A6 6 0 0 0 6.34 14.34a8.38 8.38 0 0 0-1.16-.09c-4.42 0-8 3.58-8 8a1 1 0 0 0 1 1h14a1 1 0 0 0 .86-.5c.56-.92.9-2 .9-3.16a6 6 0 0 0-2.86-5.34z"></path>
+      </g>
+    </svg>
+    <input type="text" class="grow" placeholder="Full Name" formControlName="fullName" />
+  </label>
   <button class="btn btn-primary w-full">Register</button>
 
   <p class="mt-4 text-sm">
-    Already have an account?
+    Do you have an account?
     <a routerLink="/auth/login" class="text-blue-600 hover:underline">Login</a>
   </p>
 </form>
+
+@if (hasError()) {
+<div role="alert" class="alert alert-error animate-appear fixed bottom-4 right-4 w-56">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    class="h-6 w-6 shrink-0 stroke-current"
+    fill="none"
+    viewBox="0 0 24 24"
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+    />
+  </svg>
+  <span>Error! Invalid email or password.</span>
+</div>
+}
