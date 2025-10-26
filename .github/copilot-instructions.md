@@ -59,6 +59,20 @@ Notes: The project uses Angular CLI v20 builder entries in `angular.json` (build
 - Services: use `inject(HttpClient)` (not constructor injection) when adding services that follow current code style.
 - Caching: When adding caching, use Maps as in `products.service.ts` and return cached values wrapped with `of(...)` from `rxjs`.
 
+**Code commenting conventions:**
+- **Do NOT add inline comments in code**. Explain changes, decisions, and implementation details in the chat response instead.
+- Only add comments if absolutely necessary — prefer self-documenting code with clear names.
+- If a comment is truly needed, place it as a header comment (JSDoc style) explaining **WHY** something is done, not **WHAT** it does.
+- Example of acceptable comment:
+  ```typescript
+  /**
+   * Uses a debounce to prevent excessive API calls when user types quickly.
+   * Backend rate limit is 10 req/sec per user.
+   */
+  searchProducts(query: string): Observable<Product[]> { ... }
+  ```
+- Never add comments like `// Get all products` or `// Loop through items` — the code should be clear enough.
+
 6) Integration points & external dependencies
 - Backend API: expected at `http://localhost:4000/api` (see `src/environments/*.ts`). Changes to the API require updating environment files and service interfaces in `src/app/products/interfaces/`.
 - UI libs: TailwindCSS, DaisyUI, Swiper are used — ensure PostCSS + Tailwind config matches their versions (check root `package.json` of the demo app).

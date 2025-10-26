@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { computed, inject, Injectable, signal } from '@angular/core';
-import { rxResource } from '@angular/core/rxjs-interop';
 import { AuthResponse } from '@auth/interfaces/auth-response.interface';
 import { User } from '@auth/interfaces/user.interface';
 import { environment } from '@env/environment';
@@ -11,17 +10,21 @@ const BASE_URL = environment.baseUrl;
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  constructor() { }
+  constructor() {
+    const token = localStorage.getItem('token');
+    if (token) {
+      this._token.set(token);
+    } else {
+      this._authStatus.set('not-authenticated');
+    }
+  }
+
+  private http = inject(HttpClient);
 
   private _authStatus = signal<AuthStatus>('checking');
   private _user = signal<User | null>(null);
   private _token = signal<string | null>(null);
-
-  private http = inject(HttpClient);
-
-  checkStatusResource = rxResource({
-    stream: () => this.checkAuthStatus(),
-  })
+  private checkStatusCache = new Map<string, Observable<boolean>>();
 
   authStatus = computed<AuthStatus>(() => {
     if (this._authStatus() === 'checking') return 'checking';
@@ -61,24 +64,31 @@ export class AuthService {
   }
 
   checkAuthStatus(): Observable<boolean> {
-    const token = localStorage.getItem('token');
+    const token = this._token();
+
     if (!token) {
-      this.logout();
+      this._authStatus.set('not-authenticated');
+      this._user.set(null);
       return of(false);
     }
 
-    const cacheKey = `check-auth-status-${token}`;
-    const cachedResponse = localStorage.getItem(cacheKey);
-    if (cachedResponse) {
-      return of(JSON.parse(cachedResponse));
+    if (this._user() && this._authStatus() === 'authenticated') {
+      return of(true);
     }
 
-    return this.http.get<AuthResponse>(`${BASE_URL}/auth/check-status`, {
-      // headers: { Authorization: `Bearer ${token}` }
-    }).pipe(
+    const cacheKey = `token=${token}`;
+    if (this.checkStatusCache.has(cacheKey)) {
+      return this.checkStatusCache.get(cacheKey)!;
+    }
+
+    const checkStatus$ = this.http.get<AuthResponse>(`${BASE_URL}/auth/check-status`).pipe(
       map((resp) => this.handleAuthSuccess(resp)),
-      catchError((error) => this.handleAuthError(error))
+      catchError((error) => this.handleAuthError(error)),
+      tap(() => this.checkStatusCache.delete(cacheKey))
     );
+
+    this.checkStatusCache.set(cacheKey, checkStatus$);
+    return checkStatus$;
   }
 
   private handleAuthSuccess({ user, token }: AuthResponse) {

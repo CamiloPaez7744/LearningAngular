@@ -1,16 +1,20 @@
-import { HttpEvent, HttpEventType, HttpHandlerFn, HttpRequest } from '@angular/common/http';
+import { HttpEvent, HttpHandlerFn, HttpRequest } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { AuthService } from '@auth/services/auth.service';
-import { Observable, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 
 export function authInterceptor(
   req: HttpRequest<unknown>,
   next: HttpHandlerFn
 ): Observable<HttpEvent<unknown>> {
   const token = inject(AuthService).token();
-  const newReq = req.clone({
-    headers: req.headers.append('Authorization', `Bearer ${token}`),
-  });
-  req = newReq;
-  return next(newReq);
+
+  if (token) {
+    const newReq = req.clone({
+      headers: req.headers.append('Authorization', `Bearer ${token}`),
+    });
+    return next(newReq);
+  }
+
+  return next(req);
 }
