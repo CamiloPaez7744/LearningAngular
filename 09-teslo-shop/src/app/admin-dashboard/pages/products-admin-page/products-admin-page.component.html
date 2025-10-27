@@ -1,6 +1,23 @@
 <h1>Products Admin Page</h1>
 <p>Manage your products here.</p>
 <h3>Product List</h3>
-<h4>Total Products: </h4>
+<h4>Total Products: {{ productsResource.value()?.count }}</h4>
 <div class="divider"></div>
-<product-table [products]="[]"></product-table>
+<div class="flex gap-2 items-center h-20">
+  <app-pagination
+    [pages]="productsResource.value()?.pages ?? 0"
+    [currentPage]="paginationService.currentPage()"
+  ></app-pagination>
+
+  <select
+    class="select select-bordered w-16 select-sm"
+    #productsPerPageSelect
+    (change)="onProductsPerPageChange(+productsPerPageSelect.value)"
+  >
+    <option value="10">10</option>
+    <option value="20">20</option>
+    <option value="50">50</option>
+    <option value="100">100</option>
+  </select>
+</div>
+<product-table [products]="productsResource.value()?.products ?? []"></product-table>
