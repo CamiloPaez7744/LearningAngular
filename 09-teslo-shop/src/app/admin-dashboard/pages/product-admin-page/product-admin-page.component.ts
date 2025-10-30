@@ -5,10 +5,11 @@ import { Product } from '@products/interfaces/product-response.interface';
 import { ProductsService } from '@products/services/products.service';
 import { PaginationService } from '@shared/components/pagination/pagination.service';
 import { map, tap } from 'rxjs';
+import { ProductDetails } from "./product-details/product-details";
 
 @Component({
   selector: 'app-product-admin-page',
-  imports: [],
+  imports: [ProductDetails],
   templateUrl: './product-admin-page.component.html',
 })
 export class ProductAdminPageComponent {

@@ -6,7 +6,6 @@
 
 @if(this.productResource.hasValue()) {
   <div>
-    <h1>{{ this.productResource.value().title}}</h1>
-    <p>{{ this.productResource.value().description }}</p>
+    <product-details [product]="this.productResource.value()"></product-details>
   </div>
 }

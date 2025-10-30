@@ -1,6 +1,6 @@
 # General Development Best Practices
 
-> **Project-specific conventions**: See [copilot-instructions.md](./copilot-instructions.md) for NestJS Learning Repository patterns
+> **Project-specific conventions**: See [copilot-instructions.md](./copilot-instructions.md) for NestJS Learning Repository patterns — see also [agents-md-best-practices.md](./agents-md-best-practices.md) for cross-repo/general best practices
 
 This document contains general development best practices, testing strategies, and design patterns applicable across projects.
 
