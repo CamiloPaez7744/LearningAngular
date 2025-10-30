@@ -64,4 +64,29 @@ export class ProductsService {
       })
     );
   }
+
+  updateProduct(id: string, product: Partial<Product>): Observable<Product> {
+    return this.http.patch<Product>(`${BASE_URL}/products/${id}`, product).pipe(
+      tap((updatedProduct) => {
+        this.updateProductCache(id, updatedProduct);
+      })
+    );
+  }
+
+  updateProductCache(id: string, product: Partial<Product>) {
+    const existingProduct = this.productCache.get(id);
+    if (existingProduct) {
+      this.productCache.set(id, { ...existingProduct, ...product });
+    }
+    const productsArrayKeys = Array.from(this.productsCache.keys());
+    productsArrayKeys.forEach(key => {
+      const productsResponse = this.productsCache.get(key);
+      if (productsResponse) {
+        const productIndex = productsResponse.products.findIndex(p => p.id === id);
+        if (productIndex !== -1) {
+          productsResponse.products[productIndex] = { ...productsResponse.products[productIndex], ...product };
+        }
+      }
+    });
+  }
 }

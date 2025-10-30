@@ -4,6 +4,7 @@ import { ProductCarouselComponent } from "@products/components/product-carousel/
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FormUtils } from '@utils/form.util';
 import { FormErrorLabel } from "@shared/components/form-error-label/form-error-label";
+import { ProductsService } from '@products/services/products.service';
 
 @Component({
   selector: 'product-details',
@@ -12,6 +13,7 @@ import { FormErrorLabel } from "@shared/components/form-error-label/form-error-l
 })
 export class ProductDetails implements OnInit {
   product = input.required<Product>();
+  productService = inject(ProductsService);
 
   fb = inject(FormBuilder);
 
@@ -58,7 +60,24 @@ export class ProductDetails implements OnInit {
       this.productForm.markAllAsTouched();
       return;
     }
+    const formValue = this.productForm.value;
+    const productPartial: Partial<Product> = {
+      ...formValue as any,
+      tags: formValue.tags
+        ?.toLocaleLowerCase()
+        .split(',')
+        .map(t => t.trim()) ?? [],
+    };
 
-    console.log(this.productForm.value);
+    this.productService.updateProduct(this.product().id, productPartial).subscribe({
+      next: (updatedProduct) => {
+        console.log('Product updated successfully:', updatedProduct);
+      },
+      error: (error) => {
+        console.error('Error updating product:', error);
+      }
+    });
+
+    console.log(productPartial);
   }
 }
