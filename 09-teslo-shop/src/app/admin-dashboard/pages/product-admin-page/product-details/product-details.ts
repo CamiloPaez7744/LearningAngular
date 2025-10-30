@@ -3,10 +3,11 @@ import { Product } from '@products/interfaces/product-response.interface';
 import { ProductCarouselComponent } from "@products/components/product-carousel/product-carousel.component";
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FormUtils } from '@utils/form.util';
+import { FormErrorLabel } from "@shared/components/form-error-label/form-error-label";
 
 @Component({
   selector: 'product-details',
-  imports: [ProductCarouselComponent, ReactiveFormsModule],
+  imports: [ProductCarouselComponent, ReactiveFormsModule, FormErrorLabel],
   templateUrl: './product-details.html',
 })
 export class ProductDetails implements OnInit {
@@ -37,6 +38,19 @@ export class ProductDetails implements OnInit {
     this.productForm.patchValue({
       tags: formLike.tags?.join(', '),
     });
+  }
+
+  onSizeToggle(size: string) {
+    const currentSizes: string[] = this.productForm.value.sizes || [];
+    if (currentSizes.includes(size)) {
+      this.productForm.patchValue({
+        sizes: currentSizes.filter(s => s !== size),
+      });
+    } else {
+      this.productForm.patchValue({
+        sizes: [...currentSizes, size],
+      });
+    }
   }
 
   onSubmit() {
