@@ -130,7 +130,7 @@
         class="btn btn-sm"
         type="button"
         (click)="onSizeToggle(size)"
-        [class.btn-primary]="productForm.value.sizes?.includes(size)"
+        [class.btn-primary]="selectedSizes.includes(size)"
       >
         {{ size }}
       </button>
