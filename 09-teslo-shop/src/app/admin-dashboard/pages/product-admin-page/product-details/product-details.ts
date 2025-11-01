@@ -5,6 +5,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FormUtils } from '@utils/form.util';
 import { FormErrorLabel } from "@shared/components/form-error-label/form-error-label";
 import { ProductsService } from '@products/services/products.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'product-details',
@@ -14,6 +15,7 @@ import { ProductsService } from '@products/services/products.service';
 export class ProductDetails implements OnInit {
   product = input.required<Product>();
   productService = inject(ProductsService);
+  router = inject(Router);
 
   fb = inject(FormBuilder);
 
@@ -55,6 +57,16 @@ export class ProductDetails implements OnInit {
     }
   }
 
+  onFilesChange(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (!input.files) return;
+
+    const files = Array.from(input.files);
+    const fileNames = files.map(f => f.name);
+
+    this.productForm.patchValue({ images: fileNames });
+  }
+
   onSubmit() {
     if (this.productForm.invalid) {
       this.productForm.markAllAsTouched();
@@ -68,6 +80,22 @@ export class ProductDetails implements OnInit {
         .split(',')
         .map(t => t.trim()) ?? [],
     };
+
+    console.log(this.product().id);
+
+    if (this.product().id === 'new') {
+      this.productService.createProduct(productPartial).subscribe({
+        next: (createdProduct) => {
+          this.router.navigate(['/admin/product', createdProduct.id]);
+          console.log('Product created successfully:', createdProduct);
+        },
+        error: (error) => {
+          console.error('Error creating product:', error);
+        }
+      });
+      console.log(productPartial);
+      return;
+    }
 
     this.productService.updateProduct(this.product().id, productPartial).subscribe({
       next: (updatedProduct) => {

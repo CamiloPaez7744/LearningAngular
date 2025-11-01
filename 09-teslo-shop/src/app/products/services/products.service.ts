@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+import { User } from '@auth/interfaces/user.interface';
 import { environment } from '@env/environment';
-import { Product, ProductsResponse } from '@products/interfaces/product-response.interface';
+import { Gender, Product, ProductsResponse } from '@products/interfaces/product-response.interface';
 import { delay, Observable, of, tap } from 'rxjs';
 
 const BASE_URL = environment.baseUrl;
@@ -10,6 +11,20 @@ interface Options {
   limit?: number;
   offset?: number;
   gender?: string;
+}
+
+const EMPTY_PRODUCT: Product = {
+  id: 'new',
+  title: '',
+  price: 0,
+  description: '',
+  slug: '',
+  stock: 0,
+  sizes: [],
+  gender: Gender.Kid,
+  tags: [],
+  images: [],
+  user: {} as User,
 }
 
 @Injectable({providedIn: 'root'})
@@ -54,6 +69,10 @@ export class ProductsService {
   }
 
   getProductById(id: string): Observable<Product> {
+    if (id === 'new') {
+      return of(EMPTY_PRODUCT);
+    }
+
     if (this.productCache.has(id)) {
       return of(this.productCache.get(id)!);
     }
@@ -88,5 +107,15 @@ export class ProductsService {
         }
       }
     });
+  }
+
+  createProduct(product: Partial<Product>): Observable<Product> {
+    console.log('Creating product:', product);
+    return this.http.post<Product>(`${BASE_URL}/products`, product)
+      .pipe(
+        tap((createdProduct) => {
+          this.updateProductCache(createdProduct.id, createdProduct);
+        })
+      );
   }
 }
