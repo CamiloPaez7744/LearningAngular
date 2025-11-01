@@ -153,3 +153,9 @@
   <input type="file" class="file-input file-input-bordered w-full mt-4" multiple (change)="onFilesChange($event)" />
   </div>
 </form>
+
+@if (wasSaved()) {
+  <div class="alert alert-success fixed right-4 bottom-7 w-80 animate-fade-in z-50">
+    <span>Product {{ product().id === 'new' ? 'created' : 'updated' }} successfully!</span>
+  </div>
+}

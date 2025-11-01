@@ -1,4 +1,4 @@
-import { Component, inject, input, OnInit } from '@angular/core';
+import { Component, inject, input, OnInit, signal } from '@angular/core';
 import { Product } from '@products/interfaces/product-response.interface';
 import { ProductCarouselComponent } from "@products/components/product-carousel/product-carousel.component";
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -6,6 +6,7 @@ import { FormUtils } from '@utils/form.util';
 import { FormErrorLabel } from "@shared/components/form-error-label/form-error-label";
 import { ProductsService } from '@products/services/products.service';
 import { Router } from '@angular/router';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'product-details',
@@ -16,6 +17,8 @@ export class ProductDetails implements OnInit {
   product = input.required<Product>();
   productService = inject(ProductsService);
   router = inject(Router);
+
+  wasSaved = signal(false);
 
   fb = inject(FormBuilder);
 
@@ -67,7 +70,7 @@ export class ProductDetails implements OnInit {
     this.productForm.patchValue({ images: fileNames });
   }
 
-  onSubmit() {
+  async onSubmit() {
     if (this.productForm.invalid) {
       this.productForm.markAllAsTouched();
       return;
@@ -84,16 +87,14 @@ export class ProductDetails implements OnInit {
     console.log(this.product().id);
 
     if (this.product().id === 'new') {
-      this.productService.createProduct(productPartial).subscribe({
-        next: (createdProduct) => {
-          this.router.navigate(['/admin/product', createdProduct.id]);
-          console.log('Product created successfully:', createdProduct);
-        },
-        error: (error) => {
-          console.error('Error creating product:', error);
-        }
-      });
-      console.log(productPartial);
+      const product = await firstValueFrom(this.productService.createProduct(productPartial));
+      this.wasSaved.set(true);
+      setTimeout(() => {
+        this.wasSaved.set(false);
+      }, 3000);
+
+      this.router.navigate(['/admin/product', product.id]);
+
       return;
     }
 
@@ -105,6 +106,8 @@ export class ProductDetails implements OnInit {
         console.error('Error updating product:', error);
       }
     });
+
+
 
     console.log(productPartial);
   }
