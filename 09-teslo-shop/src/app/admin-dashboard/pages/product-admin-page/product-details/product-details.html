@@ -150,7 +150,11 @@
 
     <product-carousel [images]="product().images" />
 
-  <input type="file" class="file-input file-input-bordered w-full mt-4" multiple (change)="onFilesChange($event)" />
+  <input type="file" class="file-input file-input-bordered w-full mt-4" multiple accept="image/*" (change)="onFilesChange($event)" />
+  <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+    @for (image of tempImages(); track image) {
+      <img [src]="image" class="w-full h-32 object-cover rounded-xl" />
+    }
   </div>
 </form>
 

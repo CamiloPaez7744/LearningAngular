@@ -19,6 +19,8 @@ export class ProductDetails implements OnInit {
   router = inject(Router);
 
   wasSaved = signal(false);
+  imageFileList: FileList | undefined = undefined;
+  tempImages = signal<string[]>([]);
 
   fb = inject(FormBuilder);
   productForm = this.fb.group({
@@ -80,6 +82,10 @@ export class ProductDetails implements OnInit {
 
     const files = Array.from(input.files);
     const fileNames = files.map(f => f.name);
+    this.imageFileList = input.files;
+    const fileUrls = files.map(file => URL.createObjectURL(file));
+
+    this.tempImages.set(fileUrls);
 
   this.productForm.patchValue({ images: fileNames } as any);
   }
