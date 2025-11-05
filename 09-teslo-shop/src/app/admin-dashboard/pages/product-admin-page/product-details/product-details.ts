@@ -91,7 +91,6 @@ export class ProductDetails implements OnInit {
 
     this.tempImages.set(fileUrls);
 
-  this.productForm.patchValue({ images: fileNames } as any);
   }
 
   async onSubmit() {

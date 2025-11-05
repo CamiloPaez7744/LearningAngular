@@ -148,19 +148,16 @@ export class ProductsService {
   }
 
   uploadImages( images?: FileList): Observable<string[]> { 
-    const formData = new FormData();
-    if (!images) return of([]);
-    const uploadObservables: Observable<string>[] = [];
-    Array.from(images).map((imageFile) => {
-      this.uploadImage(imageFile);
+    if (!images || images.length === 0) return of([]);
+    const uploadObservables: Observable<string>[] = Array.from(images).map((imageFile) => {
+      return this.uploadImage(imageFile);
     });
-
     return forkJoin(uploadObservables);
   }
 
   uploadImage(image: File): Observable<string> {
     const formData = new FormData();
-    formData.append('image', image);
+    formData.append('file', image);
     return this.http.post<{fileName: string}>(`${BASE_URL}/files/product`, formData).pipe(
       map(response => response.fileName)
     );
