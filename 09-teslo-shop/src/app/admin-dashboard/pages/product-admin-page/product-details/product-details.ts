@@ -117,7 +117,7 @@ export class ProductDetails implements OnInit {
 
     try {
       if (id === 'new') {
-        const product = await firstValueFrom(this.productService.createProduct(productPartial));
+        const product = await firstValueFrom(this.productService.createProduct(productPartial, this.imageFileList));
 
         this.wasSaved.set(true);
         await new Promise((res) => setTimeout(res, 1500));
@@ -125,7 +125,7 @@ export class ProductDetails implements OnInit {
         return;
       }
 
-      await firstValueFrom(this.productService.updateProduct(id, productPartial));
+      await firstValueFrom(this.productService.updateProduct(id, productPartial, this.imageFileList));
       this.wasSaved.set(true);
       setTimeout(() => this.wasSaved.set(false), 3000);
     } catch (err) {
