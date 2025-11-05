@@ -1,118 +1,68 @@
 <h1 class="text-2xl font-bold">{{ product().title }}</h1>
 <div class="divider"></div>
 
-<form
-  class="grid grid-cols-1 sm:grid-cols-2 gap-4"
-  [formGroup]="productForm"
-  (ngSubmit)="onSubmit()"
->
+<form class="grid grid-cols-1 sm:grid-cols-2 gap-4" [formGroup]="productForm" (ngSubmit)="onSubmit()">
   <!-- General Information -->
   <div class="flex flex-col gap-2">
     <h2 class="text-2xl font-bold h-12">General Information</h2>
-    <input
-      type="text"
-      placeholder="Title"
-      class="input input-bordered w-full"
-      formControlName="title"
+    <input type="text" placeholder="Title" class="input input-bordered w-full" formControlName="title"
       [class.border-red-500]="
         productForm.get('title')?.touched && productForm.get('title')?.invalid
-      "
-    />
+      " />
     <form-error-label [control]="productForm.get('title')!"></form-error-label>
 
-    <input
-      type="text"
-      placeholder="Slug"
-      class="input input-bordered w-full"
-      formControlName="slug"
-      [class.border-red-500]="productForm.get('slug')?.touched && productForm.get('slug')?.invalid"
-    />
+    <input type="text" placeholder="Slug" class="input input-bordered w-full" formControlName="slug"
+      [class.border-red-500]="productForm.get('slug')?.touched && productForm.get('slug')?.invalid" />
     <form-error-label [control]="productForm.get('slug')!"></form-error-label>
 
-    <textarea
-      class="textarea textarea-bordered"
-      placeholder="Description"
-      rows="6"
-      formControlName="description"
+    <textarea class="textarea textarea-bordered" placeholder="Description" rows="6" formControlName="description"
       [class.border-red-500]="
         productForm.get('description')?.touched && productForm.get('description')?.invalid
-      "
-    ></textarea>
+      "></textarea>
     <form-error-label [control]="productForm.get('description')!"></form-error-label>
 
     <h2 class="text-lg font-bold">Sales Information</h2>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
       <div>
-        <input
-          type="number"
-          placeholder="Price"
-          class="input input-bordered w-full"
-          formControlName="price"
+        <input type="number" placeholder="Price" class="input input-bordered w-full" formControlName="price"
           [class.border-red-500]="
             productForm.get('price')?.touched && productForm.get('price')?.invalid
-          "
-        />
+          " />
         <form-error-label [control]="productForm.get('price')!"></form-error-label>
       </div>
 
       <div>
-        <input
-          type="number"
-          placeholder="Stock"
-          class="input input-bordered w-full"
-          formControlName="stock"
+        <input type="number" placeholder="Stock" class="input input-bordered w-full" formControlName="stock"
           [class.border-red-500]="
             productForm.get('stock')?.touched && productForm.get('stock')?.invalid
-          "
-        />
+          " />
         <form-error-label [control]="productForm.get('stock')!"></form-error-label>
       </div>
     </div>
 
     <!-- tags -->
-    <input
-      type="text"
-      placeholder="Tags"
-      class="input input-bordered w-full"
-      formControlName="tags"
-      [class.border-red-500]="productForm.get('tags')?.touched && productForm.get('tags')?.invalid"
-    />
+    <input type="text" placeholder="Tags" class="input input-bordered w-full" formControlName="tags"
+      [class.border-red-500]="productForm.get('tags')?.touched && productForm.get('tags')?.invalid" />
     <form-error-label [control]="productForm.get('tags')!"></form-error-label>
 
     <!-- Botones para el género -->
     <div class="grid grid-cols-4 gap-2">
       <!-- <button class="btn btn-sm btn-outline">Masculino</button> -->
-      <button
-        type="button"
-        [class.btn-primary]="productForm.value.gender === 'men'"
-        (click)="productForm.patchValue({ gender: 'men' })"
-        class="btn btn-sm"
-      >
+      <button type="button" [class.btn-primary]="productForm.value.gender === 'men'"
+        (click)="productForm.patchValue({ gender: 'men' })" class="btn btn-sm">
         Men
       </button>
-      <button
-        type="button"
-        [class.btn-accent]="productForm.value.gender === 'women'"
-        (click)="productForm.patchValue({ gender: 'women' })"
-        class="btn btn-sm"
-      >
+      <button type="button" [class.btn-accent]="productForm.value.gender === 'women'"
+        (click)="productForm.patchValue({ gender: 'women' })" class="btn btn-sm">
         Women
       </button>
-      <button
-        type="button"
-        [class.btn-warning]="productForm.value.gender === 'kid'"
-        (click)="productForm.patchValue({ gender: 'kid' })"
-        class="btn btn-sm"
-      >
+      <button type="button" [class.btn-warning]="productForm.value.gender === 'kid'"
+        (click)="productForm.patchValue({ gender: 'kid' })" class="btn btn-sm">
         Kid
       </button>
-      <button
-        type="button"
-        [class.btn-secondary]="productForm.value.gender === 'unisex'"
-        (click)="productForm.patchValue({ gender: 'unisex' })"
-        class="btn btn-sm"
-      >
+      <button type="button" [class.btn-secondary]="productForm.value.gender === 'unisex'"
+        (click)="productForm.patchValue({ gender: 'unisex' })" class="btn btn-sm">
         Unisex
       </button>
     </div>
@@ -126,12 +76,8 @@
     <!-- Sizes -->
     <div class="grid grid-cols-6 gap-2">
       @for (size of sizes; track size) {
-      <button
-        class="btn btn-sm"
-        type="button"
-        (click)="onSizeToggle(size)"
-        [class.btn-primary]="selectedSizes.includes(size)"
-      >
+      <button class="btn btn-sm" type="button" (click)="onSizeToggle(size)"
+        [class.btn-primary]="selectedSizes.includes(size)">
         {{ size }}
       </button>
       }
@@ -148,18 +94,20 @@
       </button>
     </div>
 
-    <product-carousel [images]="product().images" />
+    <product-carousel [images]="imagesToCarousel()"></product-carousel>
 
-  <input type="file" class="file-input file-input-bordered w-full mt-4" multiple accept="image/*" (change)="onFilesChange($event)" />
-  <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
-    @for (image of tempImages(); track image) {
+    <input type="file" class="file-input file-input-bordered w-full mt-4" multiple accept="image/*"
+      (change)="onFilesChange($event)" />
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+      @for (image of tempImages(); track image) {
       <img [src]="image" class="w-full h-32 object-cover rounded-xl" />
-    }
+      }
+    </div>
   </div>
 </form>
 
 @if (wasSaved()) {
-  <div class="alert alert-success fixed right-4 bottom-7 w-80 animate-fade-in z-50">
-    <span>Product {{ product().id === 'new' ? 'created' : 'updated' }} successfully!</span>
-  </div>
+<div class="alert alert-success fixed right-4 bottom-7 w-80 animate-fade-in z-50">
+  <span>Product {{ product().id === 'new' ? 'created' : 'updated' }} successfully!</span>
+</div>
 }
