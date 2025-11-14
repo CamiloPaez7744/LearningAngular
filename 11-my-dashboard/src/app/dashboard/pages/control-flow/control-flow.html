@@ -1,4 +1,6 @@
-<section class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<app-title [title]="'Control Flow Examples'"></app-title>
+<div class="divider"></div>
+<section class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
   <div class="bg-white text-blue-950 rounded shadow p-10">
     <h2 class="text-2xl">if: {{ showContent() }}</h2>
     <button (click)="toggleContent()" class="mt-5 group inline-flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg cursor-pointer transform transition duration-150 ease-in-out hover:scale-105 active:scale-95">
@@ -37,5 +39,28 @@
         <p class="mt-4 text-gray-700">Better luck next time.</p>
       }
     }
+  </div>
+
+  <div class="bg-white text-blue-950 rounded shadow p-10">
+    <h2 class="text-2xl">for: Items List</h2>
+    <ul class="mt-5 list-disc list-inside">
+      @for(item of frameworks(); track item.name) {
+        <li class="text-gray-700">{{ item.name }} - Popular: {{ item.popular }}</li>
+      }
+    </ul>
+  </div>
+
+  <div class="bg-white text-blue-950 rounded shadow p-10">
+    <h2 class="text-2xl">for: Numbers</h2>
+    <div class="mt-5 flex space-x-4">
+      @for(num of newFrameworkName(); track $index) {
+        <div class="bg-blue-100 text-blue-800 px-4 py-2 rounded">
+        </div>
+      } @empty {
+        <div class="text-red-500">
+          No content available
+        </div>
+      }
+    </div>
   </div>
 </section>
