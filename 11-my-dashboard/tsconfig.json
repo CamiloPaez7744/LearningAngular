@@ -3,6 +3,9 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "paths": {
+      "@shared/*": ["./src/app/shared/*"]
+    },
     "strict": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,

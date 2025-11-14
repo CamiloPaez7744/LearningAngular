@@ -1,1 +1,41 @@
-<p>control-flow works!</p>,
+<section class="grid grid-cols-1 md:grid-cols-2 gap-4">
+  <div class="bg-white text-blue-950 rounded shadow p-10">
+    <h2 class="text-2xl">if: {{ showContent() }}</h2>
+    <button (click)="toggleContent()" class="mt-5 group inline-flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded-lg cursor-pointer transform transition duration-150 ease-in-out hover:scale-105 active:scale-95">
+      <span>Toggle Content</span>
+    </button>
+
+    @if(showContent()) {
+      <p class="mt-4 text-gray-700">
+        This content is conditionally rendered based on the value of <code>showContent</code>.
+      </p>
+    }@else {
+      <p class="mt-4 text-gray-700">
+        The content is hidden. Click the button to show it.
+      </p>
+    }
+  </div>
+  <div class="bg-white text-blue-950 rounded shadow p-10">
+    <h2 class="text-2xl">switch: {{ grade() }}</h2>
+    <select [value]="grade()" (change)="grade.set($any($event.target).value)" class="mt-5 block w-full rounded border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+      @for(g of availableGrades; track g) {
+      <option [value]="g">{{ g }}</option>
+      }
+    </select>
+
+    @switch(grade()) {
+      @case('A') {
+        <p class="mt-4 text-gray-700">Excellent!</p>
+      }
+      @case('B') {
+        <p class="mt-4 text-gray-700">Good job!</p>
+      }
+      @case('C') {
+        <p class="mt-4 text-gray-700">You passed.</p>
+      }
+      @default {
+        <p class="mt-4 text-gray-700">Better luck next time.</p>
+      }
+    }
+  </div>
+</section>
