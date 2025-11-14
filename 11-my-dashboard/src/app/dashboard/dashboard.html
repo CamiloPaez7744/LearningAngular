@@ -1,2 +1,8 @@
-<p>dashboard works!</p>,
-<router-outlet></router-outlet>
+<div
+  class="flex bg-slate-100 overflow-y-scroll w-screen h-screen antialiased text-zinc-800 selection:bg-blue-600 selection:text-white"
+>
+  <div class="flex relative w-screen">
+    <app-side-menu></app-side-menu>
+    <router-outlet></router-outlet>
+  </div>
+</div>
