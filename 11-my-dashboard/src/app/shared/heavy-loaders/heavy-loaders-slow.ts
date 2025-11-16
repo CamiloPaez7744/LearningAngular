@@ -1,10 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-heavy-loaders-slow',
   imports: [],
   template: `
-  <div>Slow loader</div>
+  <section [class]="'h-[600px] w-full ' + cssClass()">Slow loader</section>
   `,
 })
-export class HeavyLoadersSlow { }
+export class HeavyLoadersSlow {
+
+  cssClass = input.required<string>();
+
+  constructor() {
+    console.log('Starting heavy computation...');
+    const start = Date.now();
+    while (Date.now() - start < 3000) {
+      // Simulate heavy computation for 3 seconds
+    }
+  }
+}
